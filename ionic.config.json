@@ -1,0 +1,7 @@
+{
+  "name": "joiNusIonic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
