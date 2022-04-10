@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Create New Activity </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Create New Activity</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{message}}</p>
+      <ion-list>
+        <ion-item>
+          <ion-label><b>Activity Name: </b></ion-label>
+          <ion-input
+            type="text"
+            id="activityName"
+            name="activityName"
+            [(ngModel)]="activity.activityName"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Activity Description: </b></ion-label>
+          <ion-input
+            type="text"
+            id="activityDescription"
+            name="activityDescription"
+            [(ngModel)]="activity.activityDescription"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Max Participants: </b></ion-label>
+          <ion-input
+            type="text"
+            id="maxParticipants"
+            name="maxParticipants"
+            [(ngModel)]="activity.maxParticipants"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Tags: </b></ion-label>
+          <ion-input
+            type="text"
+            id="tags"
+            name="tags"
+            [(ngModel)]="activity.tags"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Category: </b></ion-label>
+          <ion-input
+            type="text"
+            id="category"
+            name="category"
+            [(ngModel)]="activity.category"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Booking: </b></ion-label>
+          <ion-input
+            type="text"
+            id="booking"
+            name="booking"
+            [(ngModel)]="activity.booking"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="createActivity()"> Create Activity </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>&copy; 2022 IS3106.</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -3,16 +3,18 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title> View All Activities </ion-title>
+    <ion-title> View My Activities </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-toolbar>
+  <ion-segment value="all">
+    <ion-segment-button value="ongoing">Ongoing</ion-segment-button>
+    <ion-segment-button value="past">Past</ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/createNewActivity']">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
   <ion-card expand="full" *ngFor="let activity of activities">
     <ion-card-header>
       <ion-card-title>{{activity.activityName}}</ion-card-title>
@@ -25,10 +27,6 @@
       Category: {{activity.category.categoryName}}<br />
       Date: {{activity.booking.creationDate}}
     </ion-card-content>
-    <ion-button id="view-activity-button" (click)="openIonModal(activity)"
-      >View Activity</ion-button
-    >
-    <strong *ngIf="modalData">{{modalData}}</strong>
   </ion-card>
 </ion-content>
 

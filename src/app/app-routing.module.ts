@@ -21,6 +21,26 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'createNewActivity',
+    loadChildren: () =>
+      import('./create-new-activity/create-new-activity.module').then(
+        (m) => m.CreateNewActivityPageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'viewMyActivities',
+    loadChildren: () =>
+      import('./view-my-activities/view-my-activities.module').then(
+        (m) => m.ViewMyActivitiesPageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'view-activity-popup',
+    loadChildren: () => import('./view-activity-popup/view-activity-popup.module').then( m => m.ViewActivityPopupPageModule)
+  },
 ];
 
 @NgModule({

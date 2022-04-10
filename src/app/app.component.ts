@@ -12,6 +12,11 @@ export class AppComponent {
       url: '/viewAllActivities',
       icon: 'arrow-forward',
     },
+    {
+      title: 'View My Activities',
+      url: '/viewMyActivities',
+      icon: 'arrow-forward',
+    },
   ];
   constructor() {}
 }

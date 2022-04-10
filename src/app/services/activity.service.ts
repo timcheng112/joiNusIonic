@@ -27,6 +27,12 @@ export class ActivityService {
       .pipe(catchError(this.handleError));
   }
 
+  getMyActivities(): Observable<ActivityEntity[]> {
+    return this.httpClient
+      .get<ActivityEntity[]>(this.baseUrl + '/retrieveMyActivities')
+      .pipe(catchError(this.handleError));
+  }
+
   createNewActivity(newActivity: ActivityEntity): Observable<number> {
     return this.httpClient
       .put<number>(this.baseUrl, newActivity, httpOptions)
