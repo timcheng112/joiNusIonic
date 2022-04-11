@@ -26,14 +26,14 @@ export class SessionService {
     sessionStorage['isLogin'] = isLogin;
   }
 
-  getCurrentUser(): NormalUserEntity
+  getCurrentNormalUser(): NormalUserEntity
   {
-    return JSON.parse(sessionStorage['currentUser']);
+    return JSON.parse(sessionStorage['currentNormalUser']);
   }
 
   setCurrentNormalUser(currentUser: NormalUserEntity | null): void
   {		 
-    sessionStorage['currentUser'] = JSON.stringify(currentUser);
+    sessionStorage['currentNormalUser'] = JSON.stringify(currentUser);
   }
 
   getUserId(): number
