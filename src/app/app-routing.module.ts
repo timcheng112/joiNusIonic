@@ -52,6 +52,10 @@ const routes: Routes = [
     path: 'view-activity-booking-popup',
     loadChildren: () => import('./view-activity-booking-popup/view-activity-booking-popup.module').then( m => m.ViewActivityBookingPopupPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
 
 ];
 

@@ -31,7 +31,7 @@ export class SessionService {
     return JSON.parse(sessionStorage['currentUser']);
   }
 
-  setCurrentStaff(currentUser: NormalUserEntity | null): void
+  setCurrentNormalUser(currentUser: NormalUserEntity | null): void
   {		 
     sessionStorage['currentUser'] = JSON.stringify(currentUser);
   }
