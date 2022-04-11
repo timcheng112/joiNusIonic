@@ -16,6 +16,10 @@ export class ActivityEntity {
   booking: BookingEntity | undefined;
   comments: CommentEntity[] | undefined;
   gallery: ImageEntity[] | undefined;
+  absentIds: number[] | undefined;
+  commenterIds: number[] | undefined;
+  imagePosterIds: number[] | undefined;
+  activityOver: boolean | undefined;
 
   constructor(
     activityId?: number,
@@ -28,7 +32,11 @@ export class ActivityEntity {
     category?: CategoryEntity,
     booking?: BookingEntity,
     comments?: CommentEntity[],
-    gallery?: ImageEntity[]
+    gallery?: ImageEntity[],
+    absentIds?: number[],
+    commenterIds?: number[],
+    imagePosterIds?: number[],
+    activityOver?: boolean
   ) {
     this.activityId = activityId;
     this.activityName = activityName;
@@ -41,5 +49,9 @@ export class ActivityEntity {
     this.booking = booking;
     this.comments = comments;
     this.gallery = gallery;
+    this.absentIds = absentIds;
+    this.commenterIds = commenterIds;
+    this.imagePosterIds = imagePosterIds;
+    this.activityOver = activityOver;
   }
 }
