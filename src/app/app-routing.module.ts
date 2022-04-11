@@ -40,7 +40,19 @@ const routes: Routes = [
   {
     path: 'view-activity-popup',
     loadChildren: () => import('./view-activity-popup/view-activity-popup.module').then( m => m.ViewActivityPopupPageModule)
+  },  {
+    path: 'view-activity-participants-popup',
+    loadChildren: () => import('./view-activity-participants-popup/view-activity-participants-popup.module').then( m => m.ViewActivityParticipantsPopupPageModule)
   },
+  {
+    path: 'view-activity-facility-popup',
+    loadChildren: () => import('./view-activity-facility-popup/view-activity-facility-popup.module').then( m => m.ViewActivityFacilityPopupPageModule)
+  },
+  {
+    path: 'view-activity-booking-popup',
+    loadChildren: () => import('./view-activity-booking-popup/view-activity-booking-popup.module').then( m => m.ViewActivityBookingPopupPageModule)
+  },
+
 ];
 
 @NgModule({

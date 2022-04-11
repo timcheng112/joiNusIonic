@@ -17,4 +17,5 @@ import { ViewMyActivitiesPage } from './view-my-activities.page';
   ],
   declarations: [ViewMyActivitiesPage]
 })
-export class ViewMyActivitiesPageModule {}
+export class ViewMyActivitiesPageModule {
+}

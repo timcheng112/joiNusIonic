@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    booking
+    <ion-title>{{activityBeingViewed.activityName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <ion-item lines="inset">
+          <ion-label>Activity ID: {{activityBeingViewed.activityId}}</ion-label>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label
+            >Activity Description:
+            {{activityBeingViewed.activityDescription}}</ion-label
+          >
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label
+            >Number of Participants:
+            {{activityBeingViewed.numberOfParticipants}}/{{activityBeingViewed.maxParticipants}}</ion-label
+          >
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label
+            >Category: {{activityBeingViewed.category.categoryName}}</ion-label
+          >
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label>
+            Date: {{activityBeingViewed.booking.creationDate}}
+          </ion-label>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label>
+            Facility:
+            {{activityBeingViewed.booking.timeSlot.facility.facilityName}}
+          </ion-label>
+        </ion-item>
+        <h2>Comments Section</h2>
+        <ion-item>
+          <ion-input
+            type="text"
+            id="comment"
+            name="comment"
+            placeholder="Add a comment..."
+            [(ngModel)]="comment"
+          >
+          </ion-input>
+          <ion-button (click)="addComment(comment)" oncompl>Comment</ion-button>
+        </ion-item>
+        <ion-item *ngFor="let comment of activityBeingViewed.comments">
+          <ion-avatar slot="start">
+            <img
+              src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+            />
+          </ion-avatar>
+          <ion-label
+            ><h3>{{comment.commentOwner.username}} {{comment.commentDate}}</h3>
+            <p>{{comment.text}}</p></ion-label
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="closeModel()">Close</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
