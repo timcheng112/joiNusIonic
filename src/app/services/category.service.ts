@@ -6,8 +6,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
-import { FacilityEntity } from '../models/facility-entity';
+import { CategoryEntity } from '../models/category-entity';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,14 +15,14 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
-export class FacilityService {
-  baseUrl: string = '/api/Facility';
+export class CategoryService {
+  baseUrl: string = '/api/Category';
 
   constructor(private httpClient: HttpClient) {}
 
-  getFacilities(): Observable<FacilityEntity[]> {
+  getCategories(): Observable<CategoryEntity[]> {
     return this.httpClient
-      .get<FacilityEntity[]>(this.baseUrl + '/retrieveAllFacilities')
+      .get<CategoryEntity[]>(this.baseUrl + '/retrieveAllCategories')
       .pipe(catchError(this.handleError));
   }
 

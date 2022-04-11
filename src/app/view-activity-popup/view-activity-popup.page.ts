@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ActivityEntity } from '../models/activity-entity';
+import { CommentEntity } from '../models/comment-entity';
 
 @Component({
   selector: 'app-view-activity-popup',
@@ -13,5 +14,9 @@ export class ViewActivityPopupPage implements OnInit {
   ngOnInit() {}
   async closeModel() {
     await this.modalController.dismiss();
+  }
+
+  addComment(comment: string) {
+    console.log(comment);
   }
 }

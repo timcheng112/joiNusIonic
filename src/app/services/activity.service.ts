@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { ActivityEntity } from '../models/activity-entity';
+import { NormalUserEntity } from '../models/normal-user-entity';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -33,11 +34,28 @@ export class ActivityService {
       .pipe(catchError(this.handleError));
   }
 
-  createNewActivity(newActivity: ActivityEntity): Observable<number> {
+  createNewActivity(
+    newActivity: ActivityEntity,
+    facilityName: string
+  ): Observable<number> {
     return this.httpClient
-      .put<number>(this.baseUrl, newActivity, httpOptions)
+      .put<number>(this.baseUrl, { newActivity, facilityName }, httpOptions)
       .pipe(catchError(this.handleError));
   }
+
+  // addComment(
+  //   comment: string,
+  //   commentOwner: NormalUserEntity,
+  //   commentDate: Date
+  // ) {
+  //   return this.httpClient
+  //     .put<number>(
+  //       this.baseUrl,
+  //       { comment, commentOwner, commentDate },
+  //       httpOptions
+  //     )
+  //     .pipe(catchError(this.handleError));
+  // }
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = '';

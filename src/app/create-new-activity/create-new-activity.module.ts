@@ -13,8 +13,8 @@ import { CreateNewActivityPage } from './create-new-activity.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateNewActivityPageRoutingModule
+    CreateNewActivityPageRoutingModule,
   ],
-  declarations: [CreateNewActivityPage]
+  declarations: [CreateNewActivityPage],
 })
 export class CreateNewActivityPageModule {}

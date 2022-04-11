@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  <p>{{message}}</p>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['/createNewActivity']">
       <ion-icon name="add"></ion-icon>
@@ -23,7 +24,8 @@
       Number of Participants:
       {{activity.numberOfParticipants}}/{{activity.maxParticipants}}<br />
       Category: {{activity.category.categoryName}}<br />
-      Date: {{activity.booking.creationDate}}
+      Date: {{activity.booking.creationDate}}<br />
+      Facility: {{activity.booking.timeSlot.facility.facilityName}}
     </ion-card-content>
     <ion-button id="view-activity-button" (click)="openIonModal(activity)"
       >View Activity</ion-button
