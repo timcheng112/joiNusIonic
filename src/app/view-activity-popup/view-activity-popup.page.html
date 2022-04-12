@@ -38,7 +38,7 @@
             {{activityBeingViewed.booking.timeSlot.facility.facilityName}}
           </ion-label>
         </ion-item>
-        <ion-card style="text-align: center">
+        <ion-card style="text-align: center" *ngIf="!activityBeingViewed.activityOver">
           <ion-card-content>
             <ion-button ion-button expand="block" (click)="presentAlert()">
               Join

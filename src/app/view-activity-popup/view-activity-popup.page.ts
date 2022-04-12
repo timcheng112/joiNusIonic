@@ -18,7 +18,7 @@ export class ViewActivityPopupPage implements OnInit {
     private modalController: ModalController,
     private activityService: ActivityService,
     public alertController: AlertController
-  ) {}
+  ) { }
   ngOnInit() {
     this.getActivityByActivityId();
   }
@@ -60,6 +60,24 @@ export class ViewActivityPopupPage implements OnInit {
             newDate2.setUTCHours(newDate2.getUTCHours() + 8);
             newDate2.setUTCSeconds(0);
             response.booking.creationDate = newDate2;
+
+            for (var val of response.comments) {
+              let date3: Date = val.commentDate;
+              let dateString3: string = date3.toString();
+
+              let newDate3: Date = new Date(
+                parseInt(dateString3.slice(0, 4)),
+                parseInt(dateString3.slice(5, 7)) - 1,
+                parseInt(dateString3.slice(8, 10)),
+                parseInt(dateString3.slice(11, 13)),
+                parseInt(dateString3.slice(14, 16)),
+                parseInt(dateString3.slice(17, 19))
+              );
+
+              newDate3.setUTCHours(newDate3.getUTCHours() + 8);
+              newDate3.setUTCSeconds(0);
+              val.commentDate = newDate3;
+            }
           }
           this.activityBeingViewed = response;
         },

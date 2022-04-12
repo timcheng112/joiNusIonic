@@ -9,12 +9,27 @@ import { ActivityEntity } from '../models/activity-entity';
 })
 export class ViewActivityBookingPopupPage implements OnInit {
   @Input() activityBeingViewed: ActivityEntity;
-  
+  path:string | null;
+
   constructor(private modalController: ModalController) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    
+    const tempPath = this.activityBeingViewed.booking.timeSlot.facility.facilityImage.imagePath;
+    console.log(tempPath);
+    console.log("../../assets/images/" + tempPath.slice(15));
+    this.path = "../assets/images/" + tempPath.slice(15);
+  }
   async closeModel() {
     await this.modalController.dismiss();
   }
+
+  // getImagePath() : string {
+  //   let path:string = this.activityBeingViewed.booking.timeSlot.facility.facilityImage.imagePath;
+  //   console.log(path);
+  //   console.log(path.slice(15,path.length));
+
+  //   return this.activityBeingViewed.booking.timeSlot.facility.facilityImage.imagePath;
+  // }
 
 }

@@ -24,6 +24,7 @@ export class ViewAllActivitiesPage implements OnInit {
   ngOnInit() {
     this.activityService.getActivities().subscribe({
       next: (response) => {
+        response = response.filter(item => !item.activityOver)
         this.activities = response;
       },
       error: (error) => {
