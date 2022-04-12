@@ -1,3 +1,5 @@
+import { CategoryEntity } from "./category-entity";
+
 export class NormalUserEntity {
   userId: number | undefined;
   username: string | undefined;
@@ -6,6 +8,7 @@ export class NormalUserEntity {
   email: string | undefined;
   socialCredits: number | undefined;
   bookingTokens: number | undefined;
+  interests: CategoryEntity[] | undefined;
 
   constructor(
     userId?: number,
@@ -14,7 +17,8 @@ export class NormalUserEntity {
     name?: string,
     email?: string,
     socialCredits?: number,
-    bookingTokens?: number
+    bookingTokens?: number,
+    interests?: CategoryEntity[]
   ) {
     this.userId = userId;
     this.username = username;
@@ -23,5 +27,6 @@ export class NormalUserEntity {
     this.email = email;
     this.socialCredits = socialCredits;
     this.bookingTokens = bookingTokens;
+    this.interests = interests;
   }
 }
