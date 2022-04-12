@@ -9,6 +9,7 @@ import { SessionService } from './session.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CreateNormalUserReq } from '../models/create-normal-user-req';
+import { CategoryEntity } from '../models/category-entity';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -58,12 +59,13 @@ export class NormalUserService {
 
   createNewNormalUser(
     newNormalUser: NormalUserEntity,
-    categoryIds: number[]
+    interests: CategoryEntity[]
   ): Observable<number> {
     let createNormalUserReq: CreateNormalUserReq = new CreateNormalUserReq(
-      newNormalUser,
-      categoryIds
+      newNormalUser, interests
     );
+    console.log(this.createNewNormalUser);
+    
     return this.httpClient
       .put<number>(
         this.baseUrl + '/createNewNormalUser/',

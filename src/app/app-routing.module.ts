@@ -97,7 +97,11 @@ const routes: Routes = [
         './view-activity-participating-popup/view-activity-participating-popup.module'
       ).then((m) => m.ViewActivityParticipatingPopupPageModule),
     canActivate: [AuthGuard],
+  },  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
+
 ];
 
 @NgModule({

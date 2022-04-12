@@ -1,24 +1,15 @@
+import { CategoryEntity } from "./category-entity";
 import { NormalUserEntity } from "./normal-user-entity";
 
 export class CreateNormalUserReq {
-    username: string | undefined;
-    password: string | undefined;
-    name: string | undefined;
-    email: string | undefined;
-    socialCredits: number | undefined | null;
-    bookingTokens: number | undefined;
-    categoryIds: number[] | undefined;
+    normalUser: NormalUserEntity | null;
+    interests: CategoryEntity[] | undefined;
 
 
 
-    constructor(normalUser?: NormalUserEntity, categoryIds?: number[])
+    constructor(normalUser?: NormalUserEntity, interests?: CategoryEntity[])
 	{		
-		this.username = normalUser.username;
-        this.password = normalUser.password;
-        this.name = normalUser.name;
-        this.email = normalUser.email;
-        this.socialCredits = normalUser.socialCredits;
-        this.bookingTokens = normalUser.bookingTokens;
-        this.categoryIds = categoryIds;
+		this.normalUser = normalUser;
+        this.interests = interests;
 	}
 }

@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="buttonText" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title> Create New User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Create New User</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label><b>Username:</b></ion-label>
+          <ion-input
+            type="text"
+            placeholder="shihan123"
+            id="username"
+            name="username"
+            [(ngModel)]="username"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Password:</b></ion-label>
+          <ion-input
+            type="text"
+            placeholder="321nahihs"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Name:</b></ion-label>
+          <ion-input
+            type="text"
+            placeholder="Shi Han"
+            id="name"
+            name="name"
+            [(ngModel)]="name"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><b>Email:</b></ion-label>
+          <ion-input
+            type="text"
+            placeholder="shihan123@gmail.com"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+          >
+          </ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label><b>Interests:</b></ion-label>
+          <ion-select placeholder="Select a few categories" [(ngModel)]="interests" multiple="true">
+            <ion-select-option *ngFor="let interest of allInterests" value="{{interest}}">{{interest.categoryName}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-button (click)="createNewNormalUser()"> Register User </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>&copy; 2022 IS3106.</ion-title>
+  </ion-toolbar>
+</ion-footer>
