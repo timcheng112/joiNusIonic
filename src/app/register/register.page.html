@@ -1,8 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button [text]="buttonText" [icon]="buttonIcon">
-      </ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title> Create New User</ion-title>
   </ion-toolbar>
@@ -59,16 +58,26 @@
           >
           </ion-input>
         </ion-item>
-        
+
         <ion-item>
           <ion-label><b>Interests:</b></ion-label>
-          <ion-select placeholder="Select a few categories" [(ngModel)]="interests" multiple="true">
-            <ion-select-option *ngFor="let interest of allInterests" value="{{interest}}">{{interest.categoryName}}</ion-select-option>
+          <ion-select
+            placeholder="Select a few categories"
+            [(ngModel)]="interests"
+            multiple="true"
+          >
+            <ion-select-option
+              *ngFor="let interest of allInterests"
+              value="{{interest}}"
+              >{{interest.categoryName}}</ion-select-option
+            >
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-button (click)="createNewNormalUser()"> Register User </ion-button>
+          <ion-button (click)="createNewNormalUser()">
+            Register User
+          </ion-button>
         </ion-item>
       </ion-list>
     </ion-card-content>

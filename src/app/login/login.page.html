@@ -1,104 +1,99 @@
 <ion-header>
-
-	<ion-toolbar>
-		<ion-buttons slot="start">      
-			<ion-button (click)="back()">
-				<ion-icon slot="start" name="arrow-back"></ion-icon>
-			</ion-button>
-		</ion-buttons>
-		<ion-title>Login</ion-title>
-	</ion-toolbar>
-  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Login/Logout</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card *ngIf="sessionService.getIsLogin() == false">
+    <ion-card-content>
+      <div *ngIf="loginError == true" style="color: red">{{errorMessage}}</div>
 
-	<ion-card *ngIf="sessionService.getIsLogin() == false">
-	      
-      <ion-card-content>
-	  
-		<div *ngIf="loginError == true" style="color: red;">
-			{{errorMessage}}
-		</div>
-	  
-		<form #normalUserLoginForm="ngForm" (ngSubmit)="normalUserLogin(normalUserLoginForm)" >
-		
-			<div style="color: red;">
-			
-				<div *ngIf="inusername.invalid && (inusername.dirty || inusername.touched || submitted)" class="errorText">
-					<div *ngIf="inusername.errors.required">
-						Username is required.
-					</div>
-					<div *ngIf="inusername.errors.minlength">
-						Username must be at least 4 characters long.
-					</div>
-					<div *ngIf="inusername.errors.maxlength">
-						Username cannot exceed 32 characters.
-					</div>
-				</div>
-				
-				<div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
-					<div *ngIf="inpassword.errors.required">
-						Password is required.
-					</div>
-					<div *ngIf="inpassword.errors.minlength">
-						Password must be at least 4 characters long.
-					</div>
-					<div *ngIf="inpassword.errors.maxlength">
-						Password cannot exceed 32 characters.
-					</div>
-				</div>								
-				
-			</div>
+      <form
+        #normalUserLoginForm="ngForm"
+        (ngSubmit)="normalUserLogin(normalUserLoginForm)"
+      >
+        <div style="color: red">
+          <div
+            *ngIf="inusername.invalid && (inusername.dirty || inusername.touched || submitted)"
+            class="errorText"
+          >
+            <div *ngIf="inusername.errors.required">Username is required.</div>
+            <div *ngIf="inusername.errors.minlength">
+              Username must be at least 4 characters long.
+            </div>
+            <div *ngIf="inusername.errors.maxlength">
+              Username cannot exceed 32 characters.
+            </div>
+          </div>
 
-			<ion-list>
+          <div
+            *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)"
+            class="errorText"
+          >
+            <div *ngIf="inpassword.errors.required">Password is required.</div>
+            <div *ngIf="inpassword.errors.minlength">
+              Password must be at least 4 characters long.
+            </div>
+            <div *ngIf="inpassword.errors.maxlength">
+              Password cannot exceed 32 characters.
+            </div>
+          </div>
+        </div>
 
-				<ion-item>
-					<ion-label fixed>Username</ion-label>
-					<ion-input type="text" id="username" name="username" [(ngModel)]="username" minlength="4" maxlength="32" required="true" #inusername="ngModel"></ion-input>
-				</ion-item>
+        <ion-list>
+          <ion-item>
+            <ion-label fixed>Username</ion-label>
+            <ion-input
+              type="text"
+              id="username"
+              name="username"
+              [(ngModel)]="username"
+              minlength="4"
+              maxlength="32"
+              required="true"
+              #inusername="ngModel"
+            ></ion-input>
+          </ion-item>
 
-				<ion-item>
-					<ion-label fixed>Password</ion-label>
-					<ion-input type="password" id="password" name="password" [(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
-				</ion-item>
-				
-				<ion-item>
-					<ion-button (click)="clear()">
-						Clear
-					</ion-button>					
-					<ion-button type="submit" ion-button block>
-						Login
-					</ion-button>
-				</ion-item>
+          <ion-item>
+            <ion-label fixed>Password</ion-label>
+            <ion-input
+              type="password"
+              id="password"
+              name="password"
+              [(ngModel)]="password"
+              minlength="4"
+              maxlength="32"
+              required="true"
+              #inpassword="ngModel"
+            ></ion-input>
+          </ion-item>
 
-			</ion-list>
-			
-		</form>
-        
-      </ion-card-content>
-	  
-    </ion-card>	
-	
-	<ion-card *ngIf="sessionService.getIsLogin() == true">
-	      
-      <ion-card-content>
-	  
-		Welcome, {{sessionService.getCurrentNormalUser().name}}!
-        
-      </ion-card-content>
-	  
-    </ion-card>
+          <ion-item>
+            <ion-button (click)="clear()"> Clear </ion-button>
+            <ion-button type="submit" ion-button block> Login </ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-card-content>
+  </ion-card>
 
+  <ion-card *ngIf="sessionService.getIsLogin() == true">
+    <ion-card-content>
+      Welcome, {{sessionService.getCurrentNormalUser().username}}!
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <ion-footer *ngIf="sessionService.getIsLogin() == true">
-
-	<ion-toolbar>
-		<ion-button expand="full" (click)="normalUserLogout()">
-			<ion-icon slot="start" name="exit"></ion-icon>
-			Logout
-		</ion-button>
-	</ion-toolbar>
-	
+  <ion-toolbar>
+    <ion-button expand="full" (click)="normalUserLogout()">
+      <ion-icon slot="start" name="exit"></ion-icon>
+      Logout
+    </ion-button>
+  </ion-toolbar>
 </ion-footer>

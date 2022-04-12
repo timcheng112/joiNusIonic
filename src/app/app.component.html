@@ -2,7 +2,7 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
+        <!-- <ion-list id="inbox-list">
           <ion-list-header>joiNUS</ion-list-header>
           <ion-note>User</ion-note>
 
@@ -23,6 +23,66 @@
                 [md]="p.icon + '-sharp'"
               ></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list> -->
+        <ion-list *ngIf="sessionService.getIsLogin()">
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let p of appPagesLogin; let i = index"
+          >
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[p.url]"
+              lines="none"
+              detail="false"
+              routerLinkActive="selected"
+            >
+              <ion-icon
+                slot="start"
+                [ios]="p.icon + '-outline'"
+                [md]="p.icon + '-sharp'"
+              ></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list *ngIf="!sessionService.getIsLogin()">
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let p of appPagesLogout; let i = index"
+          >
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[p.url]"
+              lines="none"
+              detail="false"
+              routerLinkActive="selected"
+            >
+              <ion-icon
+                slot="start"
+                [ios]="p.icon + '-outline'"
+                [md]="p.icon + '-sharp'"
+              ></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list *ngIf="sessionService.getIsLogin()">
+          <ion-list-header>
+            <ion-label>User Administration</ion-label>
+          </ion-list-header>
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let p of appPagesUserAdministration"
+          >
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{ p.title }}
+              </ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
