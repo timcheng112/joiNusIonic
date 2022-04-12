@@ -80,9 +80,16 @@ export class NormalUserService {
   }
 
   retrieveNormalUserRank(userId: number): Observable<number> {
-    console.log("sending out : " + userId);
+    console.log('sending out : ' + userId);
     return this.httpClient
       .get<number>(this.baseUrl + '/retrieveNormalUserRank/' + userId)
+      .pipe(catchError(this.handleError));
+  }
+
+  retrieveNormalUserById(userId: number): Observable<NormalUserEntity> {
+    console.log('sending out : ' + userId);
+    return this.httpClient
+      .get<NormalUserEntity>(this.baseUrl + '/retrieveNormalUserById/' + userId)
       .pipe(catchError(this.handleError));
   }
 

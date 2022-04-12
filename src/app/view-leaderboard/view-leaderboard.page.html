@@ -1,4 +1,4 @@
-<ion-card fullscreen="true">
+<ion-card style="max-height: 100%; display: flex; flex-direction: column">
   <ion-card-header>
     <ion-card-subtitle>Top joiNus Users:</ion-card-subtitle>
     <ion-card-title>joiNus Leaderboards</ion-card-title>
@@ -8,24 +8,26 @@
     These are the top joiNus community members!
   </ion-card-content>
 </ion-card>
- 
-<ion-card expand="full">
-  <ion-card-content>
-    <ion-list>
-      <ion-item *ngFor="let topper of leaderboard; index as i">
-        <ion-avatar slot="start">
-          <h1 style="font-size: large">{{i+1}}</h1>
-        </ion-avatar>
-        <ion-label>
-          <h2>{{topper.name}}</h2>
-          <h3>Social Credits: {{topper.socialCredits}}</h3>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-card-content>
-</ion-card>
 
-<ion-card expand="full">
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let topper of leaderboard; index as i">
+          <ion-avatar slot="start">
+            <h1 style="font-size: large">{{i+1}}</h1>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{topper.name}}</h2>
+            <h3>Social Credits: {{topper.socialCredits}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-card>
   <ion-card-header>
     <ion-card-title>Your current Position:</ion-card-title>
   </ion-card-header>
@@ -33,12 +35,14 @@
   <ion-card-content>
     <ion-item>
       <ion-avatar slot="start">
-        <h1 style="font-size: large">{{rank}}</h1>
+        <h1>{{rank}}</h1>
       </ion-avatar>
       <ion-label>
-        <h2>{{userId}}</h2>
-        <h3>Social Credits: bla</h3>
+        <h2>MR CODER JEREMY</h2>
+        <h3>Social Credits: 6969</h3>
+        <!-- <h2>{{currUser.name}}</h2>
+        <h3>Social Credits: {{currUser.socialCredits}}</h3> -->
       </ion-label>
     </ion-item>
   </ion-card-content>
-</ion-card> -->
+</ion-card>
