@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 import { ActivityEntity } from '../models/activity-entity';
 import { CategoryEntity } from '../models/category-entity';
 import { FacilityEntity } from '../models/facility-entity';
@@ -37,7 +38,8 @@ export class CreateNewActivityPage implements OnInit {
     private activityService: ActivityService,
     private facilityService: FacilityService,
     private categoryService: CategoryService,
-    private timeSlotService: TimeSlotService
+    private timeSlotService: TimeSlotService,
+    public alertController: AlertController
   ) {
     this.newActivity = new ActivityEntity();
     this.newActivity.tags = new Array();
@@ -187,7 +189,7 @@ export class CreateNewActivityPage implements OnInit {
             this.resultError = false;
             this.message =
               'New activity ' + newActivityId + ' created successfully';
-
+            this.presentSuccess();
             this.newActivity = new ActivityEntity();
             this.categoryId = undefined;
             this.timeSlotId = undefined;
@@ -202,9 +204,24 @@ export class CreateNewActivityPage implements OnInit {
               'An error has occurred while creating the new activity: ' + error;
 
             console.log('********** CreateNewActivityPage: ' + error);
+            this.presentWarning();
           },
         });
     }
+  }
+
+  async presentWarning() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',
+      message: this.message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
   addTag(tag: string) {
@@ -214,5 +231,19 @@ export class CreateNewActivityPage implements OnInit {
     if (tag != '') {
       this.newActivity.tags.push(tag);
     }
+  }
+
+  async presentSuccess() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: this.message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 }

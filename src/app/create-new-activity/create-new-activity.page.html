@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
       <ion-back-button [text]="buttonText" [icon]="buttonIcon">
       </ion-back-button>
     </ion-buttons>
@@ -47,9 +48,7 @@
             *ngIf="selCategory.invalid && (selCategory.dirty || selCategory.touched || submitted)"
             class="errorText"
           >
-            <div *ngIf="selCategory.errors.required">
-              Quantity On Hand is required.
-            </div>
+            <div *ngIf="selCategory.errors.required">Category is required.</div>
           </div>
         </div>
 
@@ -104,12 +103,15 @@
               id="tags"
               name="tags"
               [(ngModel)]="tag"
+              (keyup.enter)="addTag(tag); tag=''"
             >
             </ion-input>
-            <ion-button (click)="addTag(tag)">Add Tag</ion-button>
           </ion-item>
           <ion-item>
-            <ion-badge color="primary" *ngFor="let tag of newActivity.tags"
+            <ion-badge
+              color="primary"
+              *ngFor="let tag of newActivity.tags"
+              style="margin-right: 10px"
               >{{tag}}</ion-badge
             >
           </ion-item>
@@ -191,6 +193,6 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>&copy; 2022 IS3106.</ion-title>
+    <h6 style="margin-left: 10px">&copy; 2022 IS3106.</h6>
   </ion-toolbar>
 </ion-footer>
