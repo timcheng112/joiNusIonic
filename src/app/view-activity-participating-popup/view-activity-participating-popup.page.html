@@ -22,9 +22,6 @@
       <ion-col>
         <ion-card-title>Name</ion-card-title>
       </ion-col>
-      <ion-col>
-        <ion-card-title>Absent</ion-card-title>
-      </ion-col>
     </ion-row>
 
     <ion-list>
@@ -32,14 +29,12 @@
         <ion-label>{{participant.userId}}</ion-label>
         <ion-label>{{participant.username}}</ion-label>
         <ion-label>{{participant.name}}</ion-label>
-        <ion-checkbox slot="end" (ionChange)="fireEvent(participant.userId, $event)" name="absentUserId" [checked]="preCheck[i]"></ion-checkbox>
       </ion-item>
     </ion-list>
 
     <ion-row>
       <ion-col text-center>
         <ion-button (click)="closeModel()">Close</ion-button>
-        <ion-button (click)="punishUser()">Mark Absent</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

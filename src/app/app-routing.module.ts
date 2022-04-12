@@ -39,24 +39,65 @@ const routes: Routes = [
   },
   {
     path: 'view-activity-popup',
-    loadChildren: () => import('./view-activity-popup/view-activity-popup.module').then( m => m.ViewActivityPopupPageModule)
-  },  {
+    loadChildren: () =>
+      import('./view-activity-popup/view-activity-popup.module').then(
+        (m) => m.ViewActivityPopupPageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'view-activity-participants-popup',
-    loadChildren: () => import('./view-activity-participants-popup/view-activity-participants-popup.module').then( m => m.ViewActivityParticipantsPopupPageModule)
+    loadChildren: () =>
+      import(
+        './view-activity-participants-popup/view-activity-participants-popup.module'
+      ).then((m) => m.ViewActivityParticipantsPopupPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-activity-facility-popup',
-    loadChildren: () => import('./view-activity-facility-popup/view-activity-facility-popup.module').then( m => m.ViewActivityFacilityPopupPageModule)
+    loadChildren: () =>
+      import(
+        './view-activity-facility-popup/view-activity-facility-popup.module'
+      ).then((m) => m.ViewActivityFacilityPopupPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-activity-booking-popup',
-    loadChildren: () => import('./view-activity-booking-popup/view-activity-booking-popup.module').then( m => m.ViewActivityBookingPopupPageModule)
+    loadChildren: () =>
+      import(
+        './view-activity-booking-popup/view-activity-booking-popup.module'
+      ).then((m) => m.ViewActivityBookingPopupPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginPageModule),
   },
-
+  {
+    path: 'view-my-profile',
+    loadChildren: () =>
+      import('./view-my-profile/view-my-profile.module').then(
+        (m) => m.ViewMyProfilePageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'view-leaderboard',
+    loadChildren: () =>
+      import('./view-leaderboard/view-leaderboard.module').then(
+        (m) => m.ViewLeaderboardPageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'view-activity-participating-popup',
+    loadChildren: () =>
+      import(
+        './view-activity-participating-popup/view-activity-participating-popup.module'
+      ).then((m) => m.ViewActivityParticipatingPopupPageModule),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

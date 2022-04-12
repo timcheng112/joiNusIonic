@@ -13,6 +13,7 @@ import { CreateActivityReq } from '../models/create-activity-req';
 import { SessionService } from './session.service';
 import { AddCommentReq } from '../models/add-comment-req';
 import { SignUpForActivityReq } from '../models/sign-up-for-activity-req';
+import { PunishReq } from '../models/punish-req';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -116,7 +117,8 @@ export class ActivityService {
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = '';
-
+    console.log(error.status);
+    console.log(error.error.message);
     if (error.error instanceof ErrorEvent) {
       errorMessage = 'An unknown error has occurred: ' + error.error;
     } else {
@@ -124,8 +126,21 @@ export class ActivityService {
         'A HTTP error has occurred: ' + `HTTP ${error.status}: ${error.error}`;
     }
 
+    console.log('hmm');
     console.error(errorMessage);
 
     return throwError(() => new Error(errorMessage));
+  }
+
+  punishUsers(activityIdIn: number, absenteeIdsIn: number[]): Observable<any> {
+    console.log('here');
+    console.log(activityIdIn);
+    console.log(absenteeIdsIn);
+
+    let punishReq: PunishReq = new PunishReq(activityIdIn, absenteeIdsIn);
+
+    return this.httpClient
+      .put<any>(this.baseUrl + '/punishUsers/', punishReq, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 }

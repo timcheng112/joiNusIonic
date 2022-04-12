@@ -6,7 +6,6 @@
     <ion-title> View My Activities </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-toolbar>
   <ion-segment (ionChange)="segmentChanged($event)" value="all">
     <ion-segment-button value="hosting">
@@ -14,7 +13,7 @@
       <ion-icon name="rocket"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="participating">
-      <ion-label>Participating</ion-label>
+      <ion-label>Upcoming</ion-label>
       <ion-icon name="golf"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="past">
@@ -28,13 +27,36 @@
   <ng-container [ngSwitch]="type">
 
     <ion-list *ngSwitchCase="'hosting'">
-      <!-- <ion-item>HOSTING</ion-item> -->
 
       <ion-card expand="full" *ngFor="let activity of activities">
-        <ng-container *ngIf="activity.activityOwner.userId == userId">
-          <!-- <ion-card-content>
-              IF PASS CHECK
-          </ion-card-content> -->
+        <ng-container *ngIf="checkUserHostUpcoming(activity)">
+          <ion-card-header>
+            <ion-card-title>{{activity.activityName}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content *ngIf="!activity.activityOver">
+            <h2>Activity is Upcoming</h2>
+          </ion-card-content>
+          <ion-card-content>
+            Activity Description: {{activity.activityDescription}}<br />
+            Number of Participants: {{activity.numberOfParticipants}}/{{activity.maxParticipants}}<br />
+            Category: {{activity.category.categoryName}}<br />
+            Location: {{activity.booking.timeSlot.facility.facilityName}}<br />
+            Tags: {{activity.tags}}<br />
+            Date: {{activity.booking.timeSlot.timeSlotTime}}<br />
+          </ion-card-content>
+          <ion-button id="view-activity-button" (click)="openIonModal(activity, 1)">View Activity Details</ion-button>
+          <ion-button id="view-participants-button" (click)="openIonModal(activity, 4)">View List of Participants</ion-button>
+          <ion-button id="view-booking-button" (click)="openIonModal(activity, 3)">View Booking & Facility Details</ion-button>
+        </ng-container>
+        
+      </ion-card>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'participating'">
+      <!-- <ion-item>PARTICIPATING</ion-item> -->
+      <ion-card expand="full" *ngFor="let activity of activities">
+        <ng-container *ngIf="checkUserParticipating(activity)">
           <ion-card-header>
             <ion-card-title>{{activity.activityName}}</ion-card-title>
           </ion-card-header>
@@ -47,24 +69,40 @@
             Date: {{activity.booking.timeSlot.timeSlotTime}}<br />
           </ion-card-content>
           <ion-button id="view-activity-button" (click)="openIonModal(activity, 1)">View Activity Details</ion-button>
-          <ion-button id="view-participants-button" (click)="openIonModal(activity, 2)">View List of Participants</ion-button>
-          <ion-button id="view-booking-button" (click)="openIonModal(activity, 3)">View Booking Details</ion-button>
+          <ion-button id="view-participants-button" (click)="openIonModal(activity, 4)">View Other Participants</ion-button>
+          <ion-button id="view-booking-button" (click)="openIonModal(activity, 3)">View Booking & Facility Details</ion-button>
         </ng-container>
         
       </ion-card>
 
     </ion-list>
 
-    <ion-list *ngSwitchCase="'participating'">
-      <ion-item>PARTICIPATING</ion-item>
-
-
-    </ion-list>
-
     <ion-list *ngSwitchCase="'past'">
-      <ion-item>PAST ACTIVITIES</ion-item>
+      <!-- <ion-item>PAST ACTIVITIES</ion-item> -->
 
-
+      <ion-card expand="full" *ngFor="let activity of activities">
+        <ng-container *ngIf="checkUserPast(activity)">
+          <ion-card-header>
+            <ion-card-title>{{activity.activityName}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <script>
+              document.write("hey");
+              </script>
+            Activity Description: {{activity.activityDescription}}<br />
+            Number of Participants: {{activity.numberOfParticipants}}/{{activity.maxParticipants}}<br />
+            Category: {{activity.category.categoryName}}<br />
+            Location: {{activity.booking.timeSlot.facility.facilityName}}<br />
+            Tags: {{activity.tags}}<br />
+            Date: {{activity.booking.timeSlot.timeSlotTime}}<br />
+          </ion-card-content>
+          <ion-button id="view-activity-button" (click)="openIonModal(activity, 1)">View Activity Details</ion-button>
+          <ion-button *ngIf="activity.activityOwner.userId == userId" id="view-participants-button" (click)="openIonModal(activity, 2)">View Participants/Mark Absentees</ion-button>
+          <ion-button *ngIf="activity.activityOwner.userId != userId" id="view-participants-button" (click)="openIonModal(activity, 4)">View Participants</ion-button>
+          <ion-button id="view-booking-button" (click)="openIonModal(activity, 3)">View Booking & Facility Details</ion-button>
+        </ng-container>
+        
+      </ion-card>
     </ion-list>
 
   </ng-container>
