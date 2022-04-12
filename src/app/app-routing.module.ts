@@ -77,14 +77,14 @@ const routes: Routes = [
         (m) => m.ViewMyProfilePageModule
       ),
   },
-<<<<<<< HEAD
-];
-=======
   {
-    path: 'view-my-profile',
-    loadChildren: () => import('./view-my-profile/view-my-profile.module').then( m => m.ViewMyProfilePageModule)
+    path: 'view-leaderboard',
+    loadChildren: () =>
+      import('./view-leaderboard/view-leaderboard.module').then(
+        (m) => m.ViewLeaderboardPageModule
+      ),
   },
->>>>>>> 95493169c21b7d7fb0362005a99008d63eabcc9f
+];
 
 @NgModule({
   imports: [
