@@ -6,7 +6,6 @@
     <ion-title> View My Activities </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-toolbar>
   <ion-segment (ionChange)="segmentChanged($event)" value="all">
     <ion-segment-button value="hosting">
@@ -87,6 +86,9 @@
             <ion-card-title>{{activity.activityName}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
+            <script>
+              document.write("hey");
+              </script>
             Activity Description: {{activity.activityDescription}}<br />
             Number of Participants: {{activity.numberOfParticipants}}/{{activity.maxParticipants}}<br />
             Category: {{activity.category.categoryName}}<br />

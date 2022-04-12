@@ -10,8 +10,8 @@ import { SessionService } from '../services/session.service';
 })
 export class ViewLeaderboardPage implements OnInit {
   leaderboard: NormalUserEntity[] | null;
-  currentUser: NormalUserEntity | null;
-  rank: number | -1;
+  userId: number | null;
+  rank: number | null;
 
   constructor(
     private normalUserService: NormalUserService,
@@ -21,30 +21,35 @@ export class ViewLeaderboardPage implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this.sessionService.getCurrentNormalUser();
+    console.log("On Init");
 
-    this.normalUserService
-      .retrieveNormalUserRank(this.currentUser.userId)
-      .subscribe({
+    this.userId = this.sessionService.getUserId() | 2;
+    const tempId : number = this.sessionService.getUserId() | 2;
+    // console.log(this.userId);
+
+    this.normalUserService.retrieveNormalUserRank(tempId).subscribe({
         next: (response) => {
+          console.log("response is " + response);
           this.rank = response;
         },
         error: (error) => {
           console.log('view-leaderboard.ts + ' + error);
         },
       });
+    // console.log(this.rank);
+
 
     this.normalUserService.retrieveLeaderboard().subscribe({
       next: (response) => {
         this.leaderboard = response;
+        console.log(response);
       },
       error: (error) => {
         console.log('view-leaderboard.ts + ' + error);
       },
     });
-    console.log('HELLO WORLD');
-    console.log(
-      'HELLO ERROR ' + this.currentUser + this.rank + this.leaderboard
-    );
+    // console.log(this.leaderboard);
+
+
   }
 }
