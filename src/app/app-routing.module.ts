@@ -92,7 +92,10 @@ const routes: Routes = [
   },
   {
     path: 'view-activity-participating-popup',
-    loadChildren: () => import('./view-activity-participating-popup/view-activity-participating-popup.module').then(m => m.ViewActivityParticipatingPopupPageModule),
+    loadChildren: () =>
+      import(
+        './view-activity-participating-popup/view-activity-participating-popup.module'
+      ).then((m) => m.ViewActivityParticipatingPopupPageModule),
     canActivate: [AuthGuard],
   },
 ];
@@ -103,4 +106,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

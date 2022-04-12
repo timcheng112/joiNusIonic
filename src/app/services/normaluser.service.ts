@@ -73,9 +73,15 @@ export class NormalUserService {
       .pipe(catchError(this.handleError));
   }
 
-  getLeaderboard(): Observable<NormalUserEntity[]> {
+  retrieveLeaderboard(): Observable<NormalUserEntity[]> {
     return this.httpClient
       .get<NormalUserEntity[]>(this.baseUrl + '/retrieveLeaderboard')
+      .pipe(catchError(this.handleError));
+  }
+
+  retrieveNormalUserRank(userId: number): Observable<number> {
+    return this.httpClient
+      .get<number>(this.baseUrl + '/retrieveNormalUserRank?=' + userId)
       .pipe(catchError(this.handleError));
   }
 
