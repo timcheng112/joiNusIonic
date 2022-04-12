@@ -1,21 +1,38 @@
-<ion-card style="max-height: 100%; display: flex; flex-direction: column">
+<ion-card
+  style="max-height: 100%; display: flex; flex-direction: column"
+  color="secondary"
+  background="tertiary"
+>
   <ion-card-header>
-    <ion-card-subtitle>Top joiNus Users:</ion-card-subtitle>
-    <ion-card-title>joiNus Leaderboards</ion-card-title>
+    <ion-img
+      style="
+        position: absolute;
+        top: 50%;
+        right: 0px;
+        transform: translateY(-50%);
+      "
+      src="../../assets/images/crown.png"
+    ></ion-img>
+    <ion-card-subtitle style="font-weight: bold; text-shadow: 2px 2px #000000">
+      Top joiNus Users:</ion-card-subtitle
+    >
+    <ion-card-title style="font-weight: bold; text-shadow: 2px 2px #000000">
+      joiNus Leaderboards</ion-card-title
+    >
   </ion-card-header>
 
-  <ion-card-content>
+  <ion-card-content style="text-shadow: 1px 1px #000000">
     These are the top joiNus community members!
   </ion-card-content>
 </ion-card>
 
-<ion-content>
-  <ion-card>
+<ion-content color="tertiary">
+  <ion-card color="primary">
     <ion-card-content>
       <ion-list>
         <ion-item *ngFor="let topper of leaderboard; index as i">
           <ion-avatar slot="start">
-            <h1 style="font-size: large">{{i+1}}</h1>
+            <h1 style="font-size: x-large">{{i+1}}</h1>
           </ion-avatar>
           <ion-label>
             <h2>{{topper.name}}</h2>
@@ -27,22 +44,28 @@
   </ion-card>
 </ion-content>
 
-<ion-card>
+<ion-card color="primary">
   <ion-card-header>
     <ion-card-title>Your current Position:</ion-card-title>
   </ion-card-header>
 
-  <ion-card-content>
+  <ion-card-content color="secondary">
     <ion-item>
       <ion-avatar slot="start">
         <h1>{{rank}}</h1>
       </ion-avatar>
       <ion-label>
         <h2>MR CODER JEREMY</h2>
-        <h3>Social Credits: 6969</h3>
+        <h3>Social Credits: 1000</h3>
         <!-- <h2>{{currUser.name}}</h2>
         <h3>Social Credits: {{currUser.socialCredits}}</h3> -->
       </ion-label>
     </ion-item>
   </ion-card-content>
 </ion-card>
+
+<ion-footer>
+  <ion-toolbar>
+    <h6 style="margin-left: 10px">&copy; 2022 IS3106.</h6>
+  </ion-toolbar>
+</ion-footer>
