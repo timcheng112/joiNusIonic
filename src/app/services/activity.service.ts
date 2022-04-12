@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 import { ActivityEntity } from '../models/activity-entity';
 import { NormalUserEntity } from '../models/normal-user-entity';
+import { PunishReq } from '../models/punish-req';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -20,7 +21,7 @@ const httpOptions = {
 export class ActivityService {
   baseUrl: string = '/api/Activity';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getActivities(): Observable<ActivityEntity[]> {
     return this.httpClient
@@ -58,17 +59,36 @@ export class ActivityService {
   // }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage: string = '';
-
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = 'An unknown error has occurred: ' + error.error;
-    } else {
-      errorMessage =
-        'A HTTP error has occurred: ' + `HTTP ${error.status}: ${error.error}`;
+    let errorMessage: string = "";
+    console.log(error.status);
+    console.log(error.error.message);
+    if (error.error instanceof ErrorEvent) 
+    {		
+      errorMessage = "An unknown error has occurred: " + error.error;
+    } 
+    else 
+    {		
+      errorMessage = "A HTTP error has occurred: " + `HTTP ${error.status}: ${error.error}`;
     }
-
+    
+    console.log("hmm");
     console.error(errorMessage);
-
+    
     return throwError(() => new Error(errorMessage));
+  }
+
+  punishUsers(activityIdIn: number, absenteeIdsIn: number[]): Observable<any> 
+  {
+    console.log("here");
+    console.log(activityIdIn);
+    console.log(absenteeIdsIn);
+
+    let punishReq: PunishReq = new PunishReq(activityIdIn, absenteeIdsIn);
+
+    return this.httpClient.put<any>(this.baseUrl + "/punishUsers/", punishReq, httpOptions).pipe
+    (
+      catchError(this.handleError)
+    );
+
   }
 }
