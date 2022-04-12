@@ -18,7 +18,7 @@
     <ion-card-header>
       <ion-card-title>{{activity.activityName}}</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
+    <!-- <ion-card-content>
       Activity ID: {{activity.activityId}}<br />
       Activity Description: {{activity.activityDescription}}<br />
       Number of Participants:
@@ -26,6 +26,19 @@
       Category: {{activity.category.categoryName}}<br />
       Date: {{activity.booking.creationDate}}<br />
       Facility: {{activity.booking.timeSlot.facility.facilityName}}
+    </ion-card-content> -->
+    <ion-card-content>
+      <p>Activity ID: {{activity.activityId}}</p>
+      <p>Activity Description: {{activity.activityDescription}}</p>
+      <p>
+        Number of Participants:
+        {{activity.numberOfParticipants}}/{{activity.maxParticipants}}
+      </p>
+      <p>Category: {{activity.category.categoryName}}</p>
+      <!-- <p *ngIf="activity.booking.timeSlot.timeSlotTime != null">
+        {{activity.booking.timeSlot.timeSlotTime}}
+      </p> -->
+      <!-- Date: {{activity.booking.creationDate}} -->
     </ion-card-content>
     <ion-button id="view-activity-button" (click)="openIonModal(activity)"
       >View Activity</ion-button
