@@ -43,6 +43,7 @@ const routes: Routes = [
       import('./view-activity-popup/view-activity-popup.module').then(
         (m) => m.ViewActivityPopupPageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-activity-participants-popup',
@@ -50,6 +51,7 @@ const routes: Routes = [
       import(
         './view-activity-participants-popup/view-activity-participants-popup.module'
       ).then((m) => m.ViewActivityParticipantsPopupPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-activity-facility-popup',
@@ -57,6 +59,7 @@ const routes: Routes = [
       import(
         './view-activity-facility-popup/view-activity-facility-popup.module'
       ).then((m) => m.ViewActivityFacilityPopupPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-activity-booking-popup',
@@ -64,6 +67,7 @@ const routes: Routes = [
       import(
         './view-activity-booking-popup/view-activity-booking-popup.module'
       ).then((m) => m.ViewActivityBookingPopupPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
@@ -76,6 +80,7 @@ const routes: Routes = [
       import('./view-my-profile/view-my-profile.module').then(
         (m) => m.ViewMyProfilePageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-leaderboard',
@@ -83,6 +88,12 @@ const routes: Routes = [
       import('./view-leaderboard/view-leaderboard.module').then(
         (m) => m.ViewLeaderboardPageModule
       ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'view-activity-participating-popup',
+    loadChildren: () => import('./view-activity-participating-popup/view-activity-participating-popup.module').then(m => m.ViewActivityParticipatingPopupPageModule),
+    canActivate: [AuthGuard],
   },
 ];
 
@@ -92,4 +103,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
