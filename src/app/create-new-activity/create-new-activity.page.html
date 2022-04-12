@@ -9,95 +9,184 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Create New Activity</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-label><b>Activity Name: </b></ion-label>
-          <ion-input
-            type="text"
-            placeholder="Volleyball Meetup"
-            id="activityName"
-            name="activityName"
-            [(ngModel)]="activity.activityName"
+  <form #createActivityForm="ngForm" (ngSubmit)="create(createActivityForm)">
+    <ion-card>
+      <ion-card-content>
+        <div *ngIf="resultSuccess == true" style="color: blue">{{message}}</div>
+
+        <div *ngIf="resultError == true" style="color: red">{{message}}</div>
+        <div style="color: red">
+          <div
+            *ngIf="activityName.invalid && (activityName.dirty || activityName.touched || submitted)"
+            class="errorText"
           >
-          </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label><b>Activity Description: </b></ion-label>
-          <ion-textarea
-            type="text"
-            placeholder="Let's meet up for a casual game of volleyball!"
-            id="activityDescription"
-            name="activityDescription"
-            [(ngModel)]="activity.activityDescription"
+            <div *ngIf="activityName.errors.required">
+              Activity Name is required.
+            </div>
+          </div>
+
+          <div
+            *ngIf="activityDescription.invalid && (activityDescription.dirty || activityDescription.touched || submitted)"
+            class="errorText"
           >
-          </ion-textarea>
-        </ion-item>
-        <ion-item>
-          <ion-label><b>Max Participants: </b></ion-label>
-          <ion-input
-            type="number"
-            placeholder="1"
-            id="maxParticipants"
-            name="maxParticipants"
-            [(ngModel)]="activity.maxParticipants"
+            <div *ngIf="activityDescription.errors.required">
+              Activity Description is required.
+            </div>
+          </div>
+
+          <div
+            *ngIf="maxParticipants.invalid && (maxParticipants.dirty || maxParticipants.touched || submitted)"
+            class="errorText"
           >
-          </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label><b>Tags: </b></ion-label>
-          <ion-input
-            type="text"
-            placeholder="Casual"
-            id="tags"
-            name="tags"
-            [(ngModel)]="activity.tags"
+            <div *ngIf="maxParticipants.errors.required">
+              Max Participants is required.
+            </div>
+          </div>
+
+          <div
+            *ngIf="selCategory.invalid && (selCategory.dirty || selCategory.touched || submitted)"
+            class="errorText"
           >
-          </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Category</ion-label>
-          <ion-select
-            type="text"
-            placeholder="Sports"
-            id="selCategory"
-            name="selCategory"
-            [(ngModel)]="categoryName"
-          >
-            <ion-select-option
-              *ngFor="let category of categories"
-              value="category.categoryId"
-              >{{category.categoryName}}</ion-select-option
+            <div *ngIf="selCategory.errors.required">
+              Quantity On Hand is required.
+            </div>
+          </div>
+        </div>
+
+        <ion-card-header>
+          <ion-card-title>Create New Activity</ion-card-title>
+        </ion-card-header>
+        <ion-list>
+          <ion-item>
+            <ion-label><b>Activity Name: </b></ion-label>
+            <ion-input
+              type="text"
+              placeholder="Volleyball Meetup"
+              id="activityName"
+              name="activityName"
+              [(ngModel)]="newActivity.activityName"
+              required="true"
+              #activityName="ngModel"
             >
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label><b>Facility: </b></ion-label>
-          <ion-select
-            type="text"
-            placeholder="USC Bouldering Wall"
-            id="selFacility"
-            name="selFacility"
-            [(ngModel)]="facilityName"
-            multiple
-          >
-            <ion-select-option
-              *ngFor="let facility of facilities"
-              value="facility.facilityId"
-              >{{facility.facilityName}}</ion-select-option
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Activity Description: </b></ion-label>
+            <ion-textarea
+              type="text"
+              placeholder="Let's meet up for a casual game of volleyball!"
+              id="activityDescription"
+              name="activityDescription"
+              [(ngModel)]="newActivity.activityDescription"
+              required="true"
+              #activityDescription="ngModel"
             >
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-button (click)="createActivity()"> Create Activity </ion-button>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+            </ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Max Participants: </b></ion-label>
+            <ion-input
+              type="number"
+              placeholder="1"
+              id="maxParticipants"
+              name="maxParticipants"
+              [(ngModel)]="newActivity.maxParticipants"
+              required="true"
+              #maxParticipants="ngModel"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Tags: </b></ion-label>
+            <ion-input
+              type="text"
+              placeholder="Casual"
+              id="tags"
+              name="tags"
+              [(ngModel)]="tag"
+            >
+            </ion-input>
+            <ion-button (click)="addTag(tag)">Add Tag</ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-badge color="primary" *ngFor="let tag of newActivity.tags"
+              >{{tag}}</ion-badge
+            >
+          </ion-item>
+          <ion-item>
+            <ion-label>Category</ion-label>
+            <ion-select
+              type="text"
+              placeholder="Sports"
+              id="selCategory"
+              name="selCategory"
+              [(ngModel)]="categoryId"
+              required="true"
+              #selCategory="ngModel"
+            >
+              <ion-select-option
+                *ngFor="let category of categories"
+                [value]="category.categoryId"
+                >{{category.categoryName}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Facility: </b></ion-label>
+            <ion-select
+              type="text"
+              placeholder="USC Bouldering Wall"
+              id="selFacility"
+              name="selFacility"
+              [(ngModel)]="facilityId"
+            >
+              <ion-select-option
+                *ngFor="let facility of facilities"
+                [value]="facility.facilityId"
+                >{{facility.facilityName}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Date: </b></ion-label>
+            <ion-datetime
+              min="{{minDateString}}"
+              max="{{maxDateString}}"
+              value="{{minDateString}}"
+              [(ngModel)]="datePicked"
+              name="date"
+              presentation="date"
+            ></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Timeslot: </b></ion-label>
+            <ion-select
+              type="text"
+              id="selTimeslot"
+              name="selTimeslot"
+              [(ngModel)]="timeSlotPicked"
+              (ionChange)="selectTimeslot(timeSlotPicked)"
+            >
+              <ion-select-option
+                *ngFor="let timeslot of availTimeSlots"
+                [value]="timeslot.getHours()"
+                >{{timeslot.getHours()}}:00</ion-select-option
+              >
+            </ion-select>
+            <ion-button (click)="getAvailTimeSlotsByDate(datePicked)"
+              >Retrieve Timeslots</ion-button
+            >
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-card style="text-align: center">
+      <ion-card-content>
+        <ion-button (click)="clear()"> Clear </ion-button>
+        <ion-button type="submit" ion-button block> Create </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>
 
 <ion-footer>
