@@ -4,6 +4,7 @@ import { CreateNewActivityPage } from '../create-new-activity/create-new-activit
 import { ActivityEntity } from '../models/activity-entity';
 import { ActivityService } from '../services/activity.service';
 import { ViewActivityPopupPage } from '../view-activity-popup/view-activity-popup.page';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-view-all-activities',
@@ -12,19 +13,22 @@ import { ViewActivityPopupPage } from '../view-activity-popup/view-activity-popu
 })
 export class ViewAllActivitiesPage implements OnInit {
   activities: ActivityEntity[] | null;
+  userId: number | null;
   modalData: any;
 
   constructor(
     private activityService: ActivityService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private sessionService: SessionService
   ) {
     this.activities = new Array();
   }
 
   ngOnInit() {
-    this.activityService.getActivities().subscribe({
+    this.userId = this.sessionService.getUserId();
+    this.activityService.getActivitiesIP(this.userId).subscribe({
       next: (response) => {
-        response = response.filter(item => !item.activityOver)
+        response = response.filter((item) => !item.activityOver);
         this.activities = response;
       },
       error: (error) => {
