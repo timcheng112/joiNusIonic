@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NormalUserEntity } from '../models/normal-user-entity';
+import { NormalUserService } from '../services/normaluser.service';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-index',
@@ -6,10 +9,56 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.page.scss'],
 })
 export class IndexPage implements OnInit {
+  leaderboard: NormalUserEntity[] | null;
+  userId: number | null;
+  rank: number | null;
+  currUser: NormalUserEntity | null;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private normalUserService: NormalUserService,
+    private sessionService: SessionService
+  ) {
+    this.leaderboard = new Array();
   }
 
+  ngOnInit() {
+    console.log('On Init');
+
+    this.userId = this.sessionService.getUserId();
+    const tempId: number = this.sessionService.getUserId();
+    // console.log(this.userId);
+    this.currUser = this.sessionService.getCurrentNormalUser();
+
+    this.normalUserService.retrieveNormalUserRank(tempId).subscribe({
+      next: (response) => {
+        console.log('response is ' + response);
+        this.rank = response;
+      },
+      error: (error) => {
+        console.log('view-leaderboard.ts + ' + error);
+      },
+    });
+    // console.log(this.rank);
+
+    // this.normalUserService.retrieveNormalUserById(tempId).subscribe({
+    //   next: (response) => {
+    //     console.log('response is ' + response);
+    //     this.currUser = response;
+    //   },
+    //   error: (error) => {
+    //     console.log('view-leaderboard.ts + ' + error);
+    //   },
+    // });
+
+    this.normalUserService.retrieveLeaderboard().subscribe({
+      next: (response) => {
+        this.leaderboard = response;
+        console.log(response);
+      },
+      error: (error) => {
+        console.log('view-leaderboard.ts + ' + error);
+      },
+    });
+    // console.log(this.leaderboard);
+  }
 }
