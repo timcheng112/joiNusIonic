@@ -176,26 +176,32 @@ export class CreateNewActivityPage implements OnInit {
     console.log('Activity Facility ID: ' + this.facilityId);
     console.log('Activity Timeslot ID: ' + this.timeSlotId);
     console.log('Activity Entity: ' + this.newActivity);
-    console.log(datePicked.toLocaleString());
 
-    let yearDateTimeString =
-      datePicked.toLocaleString()[0] +
-      datePicked.toLocaleString()[1] +
-      datePicked.toLocaleString()[2] +
-      datePicked.toLocaleString()[3];
-    let year: number = +yearDateTimeString;
-    let monthDateTimeString =
-      datePicked.toLocaleString()[5] + datePicked.toLocaleString()[6];
-    let month: number = +monthDateTimeString;
-    let dayDateTimeString =
-      datePicked.toLocaleString()[8] + datePicked.toLocaleString()[9];
-    let day: number = +dayDateTimeString;
-    let hourDateTimeString =
-      datePicked.toLocaleString()[11] + datePicked.toLocaleString()[12];
-    let hour: number = +hourDateTimeString;
-    let minuteDateTimeString =
-      datePicked.toLocaleString()[14] + datePicked.toLocaleString()[15];
-    let minute: number = +minuteDateTimeString;
+    let year: number;
+    let month: number;
+    let day: number;
+    let hour: number;
+    let minute: number;
+    if (datePicked != null || datePicked != undefined) {
+      let yearDateTimeString =
+        datePicked.toLocaleString()[0] +
+        datePicked.toLocaleString()[1] +
+        datePicked.toLocaleString()[2] +
+        datePicked.toLocaleString()[3];
+      year = +yearDateTimeString;
+      let monthDateTimeString =
+        datePicked.toLocaleString()[5] + datePicked.toLocaleString()[6];
+      month = +monthDateTimeString;
+      let dayDateTimeString =
+        datePicked.toLocaleString()[8] + datePicked.toLocaleString()[9];
+      day = +dayDateTimeString;
+      let hourDateTimeString =
+        datePicked.toLocaleString()[11] + datePicked.toLocaleString()[12];
+      hour = +hourDateTimeString;
+      let minuteDateTimeString =
+        datePicked.toLocaleString()[14] + datePicked.toLocaleString()[15];
+      minute = +minuteDateTimeString;
+    }
 
     this.submitted = true;
 
@@ -279,12 +285,13 @@ export class CreateNewActivityPage implements OnInit {
           });
       }
     }
+    this.presentWarning();
   }
 
   async presentWarning() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Alert',
+      header: 'Error with fields, please try again',
       message: this.message,
       buttons: ['OK'],
     });
