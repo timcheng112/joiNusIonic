@@ -13,8 +13,8 @@ import { SessionService } from '../services/session.service';
 export class LoginPage implements OnInit {
 
   submitted: boolean;
-  username: string;
-  password: string;
+  username: string | null;
+  password: string | null;
   loginError: boolean;
   errorMessage: string;
 
@@ -52,34 +52,47 @@ export class LoginPage implements OnInit {
 						this.sessionService.setCurrentNormalUser(normalUser);
             this.sessionService.setUserId(normalUser.userId);
 						this.loginError = false;
+            console.log("login set true");
 					}
 					else
           {
 						this.loginError = true;
 					}
+          console.log(sessionStorage['isLogin'] == "true");
+
+          this.router.navigate(['/index']);
         },
         error:(error)=>{
           this.loginError = true;
 					this.errorMessage = 'Invalid login credential: Username does not exist or invalid password!'
         }
       });
+
+      
 		}
 		
 	}
 
 
 
-	normalUserLogout(): void 
+	normalUserLogout() 
   {
-		this.sessionService.setIsLogin(false);
+		
 		this.sessionService.setCurrentNormalUser(null);
+    this.sessionService.setUserId(null);
+    this.sessionService.setPassword("");
+    this.sessionService.setUsername("");
+    this.sessionService.setIsLogin(false);
+
+    console.log('set user logout');
+    console.log(sessionStorage['isLogin'] == "true");
 	}
 
 
 
-	back()
-  {
-		this.router.navigate(["/index"]);
-	}
+	// back()
+  // {
+	// 	this.router.navigate(["/"]);
+	// }
 
 }
