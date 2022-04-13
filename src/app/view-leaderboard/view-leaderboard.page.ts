@@ -24,9 +24,10 @@ export class ViewLeaderboardPage implements OnInit {
   ngOnInit() {
     console.log('On Init');
 
-    this.userId = this.sessionService.getUserId() | 2;
-    const tempId: number = this.sessionService.getUserId() | 2;
+    this.userId = this.sessionService.getUserId();
+    const tempId: number = this.sessionService.getUserId();
     // console.log(this.userId);
+    this.currUser = this.sessionService.getCurrentNormalUser();
 
     this.normalUserService.retrieveNormalUserRank(tempId).subscribe({
       next: (response) => {
@@ -39,15 +40,15 @@ export class ViewLeaderboardPage implements OnInit {
     });
     // console.log(this.rank);
 
-    this.normalUserService.retrieveNormalUserById(tempId).subscribe({
-      next: (response) => {
-        console.log('response is ' + response);
-        this.currUser = response;
-      },
-      error: (error) => {
-        console.log('view-leaderboard.ts + ' + error);
-      },
-    });
+    // this.normalUserService.retrieveNormalUserById(tempId).subscribe({
+    //   next: (response) => {
+    //     console.log('response is ' + response);
+    //     this.currUser = response;
+    //   },
+    //   error: (error) => {
+    //     console.log('view-leaderboard.ts + ' + error);
+    //   },
+    // });
 
     this.normalUserService.retrieveLeaderboard().subscribe({
       next: (response) => {

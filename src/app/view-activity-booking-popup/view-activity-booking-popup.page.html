@@ -61,23 +61,27 @@
 
         <ion-item lines="inset">
           <ion-label>
-            Opening Hours: {{activityBeingViewed.booking.timeSlot.facility.openingHour}}.00 - {{activityBeingViewed.booking.timeSlot.facility.closingHour}}.00
+            Opening Hours: {{activityBeingViewed.booking.timeSlot.facility.openingHour}}.00 -
+            {{activityBeingViewed.booking.timeSlot.facility.closingHour}}.00
           </ion-label>
         </ion-item>
-
-        <!-- <ion-item lines="inset">
-          <ion-thumbnail slot="start">
-            <ion-img>[src]={{activityBeingViewed.booking.timeSlot.facility.facilityImage.imagePath}}</ion-img>
-          </ion-thumbnail>>
-        </ion-item> -->
 
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col text-center>
-        <ion-button (click)="closeModel()">Close</ion-button>
+      <ion-col>
+        <ion-item lines="inset">
+          <ion-img style="object-fit: cover; width:200%; height: auto;" src={{path}}
+            alt={{activityBeingViewed.booking.timeSlot.facility.facilityImage.imageDescription}}></ion-img>
+        </ion-item>
       </ion-col>
+
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+
+
+<ion-button (click)="closeModel()">Close</ion-button>

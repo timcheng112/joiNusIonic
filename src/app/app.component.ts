@@ -19,7 +19,7 @@ export class AppComponent {
 
   public appPagesUserAdministration = [
     {
-      title: 'View All Activities',
+      title: 'View All Upcoming Activities',
       url: '/viewAllActivities',
       icon: 'today',
     },
