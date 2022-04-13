@@ -58,13 +58,13 @@ export class NormalUserService {
   }
 
   createNewNormalUser(
-    newNormalUser: NormalUserEntity,
-    interests: CategoryEntity[]
+    newUser: NormalUserEntity
   ): Observable<number> {
     let createNormalUserReq: CreateNormalUserReq = new CreateNormalUserReq(
-      newNormalUser, interests
+      newUser
     );
-    console.log(this.createNewNormalUser);
+    console.log("sending this to netbeans");
+    console.log(createNormalUserReq);
     
     return this.httpClient
       .put<number>(
