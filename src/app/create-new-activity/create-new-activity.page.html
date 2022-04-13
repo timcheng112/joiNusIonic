@@ -10,7 +10,10 @@
 </ion-header>
 
 <ion-content>
-  <form #createActivityForm="ngForm" (ngSubmit)="create(createActivityForm)">
+  <form
+    #createActivityForm="ngForm"
+    (ngSubmit)="create(createActivityForm, datePicked)"
+  >
     <ion-card>
       <ion-card-content>
         <div *ngIf="resultSuccess == true" style="color: blue">{{message}}</div>
@@ -43,12 +46,17 @@
               Max Participants is required.
             </div>
           </div>
-
           <div
             *ngIf="selCategory.invalid && (selCategory.dirty || selCategory.touched || submitted)"
             class="errorText"
           >
             <div *ngIf="selCategory.errors.required">Category is required.</div>
+          </div>
+          <div
+            *ngIf="selFacility.invalid && (selFacility.dirty || selFacility.touched || submitted)"
+            class="errorText"
+          >
+            <div *ngIf="selFacility.errors.required">Facility is required.</div>
           </div>
         </div>
 
@@ -116,7 +124,7 @@
             >
           </ion-item>
           <ion-item>
-            <ion-label>Category</ion-label>
+            <ion-label><b>Category: </b></ion-label>
             <ion-select
               type="text"
               placeholder="Sports"
@@ -141,6 +149,8 @@
               id="selFacility"
               name="selFacility"
               [(ngModel)]="facilityId"
+              #selFacility="ngModel"
+              required="true"
             >
               <ion-select-option
                 *ngFor="let facility of facilities"
@@ -149,25 +159,57 @@
               >
             </ion-select>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="facilityId == 2">
+            <ion-label><b>Location: </b></ion-label>
+            <ion-input
+              type="text"
+              placeholder=""
+              id="selLocation"
+              name="selLocation"
+              [(ngModel)]="location"
+              #selLocation="ngModel"
+              required="true"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="facilityId != 2 && facilityId != null">
             <ion-label><b>Date: </b></ion-label>
             <ion-datetime
               min="{{minDateString}}"
               max="{{maxDateString}}"
               value="{{minDateString}}"
               [(ngModel)]="datePicked"
-              name="date"
+              #selDate="ngModel"
+              id="selDate"
+              name="selDate"
               presentation="date"
+              required="true"
             ></ion-datetime>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="facilityId == 2">
+            <ion-label><b>Date: </b></ion-label>
+            <ion-datetime
+              min="{{minDateString}}"
+              max="{{maxDateString}}"
+              value="{{minDateString}}"
+              [(ngModel)]="datePicked"
+              id="selDate"
+              name="selDate"
+              #selDate="ngModel"
+              name="date"
+              required="true"
+            ></ion-datetime>
+          </ion-item>
+          <ion-item *ngIf="datePicked != null && facilityId != 2">
             <ion-label><b>Timeslot: </b></ion-label>
             <ion-select
               type="text"
               id="selTimeslot"
               name="selTimeslot"
               [(ngModel)]="timeSlotPicked"
+              #selTimeslot="ngModel"
               (ionChange)="selectTimeslot(timeSlotPicked)"
+              required="true"
             >
               <ion-select-option
                 *ngFor="let timeslot of availTimeSlots"

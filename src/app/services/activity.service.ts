@@ -14,6 +14,7 @@ import { SessionService } from './session.service';
 import { AddCommentReq } from '../models/add-comment-req';
 import { SignUpForActivityReq } from '../models/sign-up-for-activity-req';
 import { PunishReq } from '../models/punish-req';
+import { CreateNewNoFacilityActivityReq } from '../models/create-new-no-facility-activity-req';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -97,6 +98,47 @@ export class ActivityService {
       .put<any>(
         this.baseUrl + '/createNewActivity/',
         createActivityReq,
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  createNewNoFacilityActivity(
+    newActivityName: string,
+    newActivityDescription: string,
+    newActivityMaxParticipants: number,
+    newActivityTags: string[],
+    categoryId: number | null,
+    timeSlotId: number | null,
+    activityYear: number | undefined,
+    activityMonth: number | undefined,
+    activityDay: number | undefined,
+    activityHour: number | undefined,
+    activityMinute: number | undefined
+  ): Observable<any> {
+    let createNewNoFacilityActivityReq: CreateNewNoFacilityActivityReq =
+      new CreateNewNoFacilityActivityReq(
+        this.sessionService.getUsername(),
+        this.sessionService.getPassword(),
+        newActivityName,
+        newActivityDescription,
+        newActivityMaxParticipants,
+        newActivityTags,
+        categoryId,
+        timeSlotId,
+        activityYear,
+        activityMonth,
+        activityDay,
+        activityHour,
+        activityMinute
+      );
+
+    console.log(createNewNoFacilityActivityReq);
+
+    return this.httpClient
+      .put<any>(
+        this.baseUrl + '/createNewNoFacilityActivity/',
+        createNewNoFacilityActivityReq,
         httpOptions
       )
       .pipe(catchError(this.handleError));

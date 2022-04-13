@@ -28,11 +28,12 @@ export class CreateNewActivityPage implements OnInit {
   maxDateString: string;
   timeSlots: TimeSlotEntity[];
   availTimeSlots: Date[];
-  timeSlotId: number;
+  timeSlotId: number | null;
   newActivity: ActivityEntity;
   submitted: boolean;
   resultSuccess: boolean;
   resultError: boolean;
+  location: string;
 
   constructor(
     private activityService: ActivityService,
@@ -41,16 +42,18 @@ export class CreateNewActivityPage implements OnInit {
     private timeSlotService: TimeSlotService,
     public alertController: AlertController
   ) {
+    this.timeSlotId = null;
     this.newActivity = new ActivityEntity();
     this.newActivity.tags = new Array();
     this.availTimeSlots = new Array();
-    this.minDate = new Date();
+    this.minDate = new Date(new Date().setDate(new Date().getDate() + 7));
     this.maxDate = new Date(new Date().setDate(this.minDate.getDate() + 7));
     this.minDateString = this.formatDate(this.minDate);
     this.maxDateString = this.formatDate(this.maxDate);
     this.submitted = false;
     this.resultSuccess = false;
     this.resultError = false;
+    this.location = '';
   }
 
   ngOnInit() {
@@ -155,7 +158,12 @@ export class CreateNewActivityPage implements OnInit {
     return year + '-' + month + '-' + day;
   }
 
-  create(createActivityForm: NgForm) {
+  create(createActivityForm: NgForm, datePicked: Date) {
+    if (!(this.location === '')) {
+      this.newActivity.activityDescription =
+        this.newActivity.activityDescription + '; Location: ' + this.location;
+    }
+
     console.log('Activity Name: ' + this.newActivity.activityName);
     console.log(
       'Activity Description: ' + this.newActivity.activityDescription
@@ -168,45 +176,108 @@ export class CreateNewActivityPage implements OnInit {
     console.log('Activity Facility ID: ' + this.facilityId);
     console.log('Activity Timeslot ID: ' + this.timeSlotId);
     console.log('Activity Entity: ' + this.newActivity);
+    console.log(datePicked.toLocaleString());
+
+    let yearDateTimeString =
+      datePicked.toLocaleString()[0] +
+      datePicked.toLocaleString()[1] +
+      datePicked.toLocaleString()[2] +
+      datePicked.toLocaleString()[3];
+    let year: number = +yearDateTimeString;
+    let monthDateTimeString =
+      datePicked.toLocaleString()[5] + datePicked.toLocaleString()[6];
+    let month: number = +monthDateTimeString;
+    let dayDateTimeString =
+      datePicked.toLocaleString()[8] + datePicked.toLocaleString()[9];
+    let day: number = +dayDateTimeString;
+    let hourDateTimeString =
+      datePicked.toLocaleString()[11] + datePicked.toLocaleString()[12];
+    let hour: number = +hourDateTimeString;
+    let minuteDateTimeString =
+      datePicked.toLocaleString()[14] + datePicked.toLocaleString()[15];
+    let minute: number = +minuteDateTimeString;
 
     this.submitted = true;
 
     if (createActivityForm.valid) {
-      this.activityService
-        .createNewActivity(
-          // this.newActivity,
-          this.newActivity.activityName,
-          this.newActivity.activityDescription,
-          this.newActivity.maxParticipants,
-          this.newActivity.tags,
-          this.categoryId,
-          this.timeSlotId
-        )
-        .subscribe({
-          next: (response) => {
-            let newActivityId: number = response;
-            this.resultSuccess = true;
-            this.resultError = false;
-            this.message =
-              'New activity ' + newActivityId + ' created successfully';
-            this.presentSuccess();
-            this.newActivity = new ActivityEntity();
-            this.categoryId = undefined;
-            this.timeSlotId = undefined;
-            this.availTimeSlots = new Array();
-            this.submitted = false;
-            createActivityForm.reset();
-          },
-          error: (error) => {
-            this.resultError = true;
-            this.resultSuccess = false;
-            this.message =
-              'An error has occurred while creating the new activity: ' + error;
+      if (this.timeSlotId != null) {
+        this.activityService
+          .createNewActivity(
+            this.newActivity.activityName,
+            this.newActivity.activityDescription,
+            this.newActivity.maxParticipants,
+            this.newActivity.tags,
+            this.categoryId,
+            this.timeSlotId
+          )
+          .subscribe({
+            next: (response) => {
+              let newActivityId: number = response;
+              this.resultSuccess = true;
+              this.resultError = false;
+              this.message =
+                'New activity ' + newActivityId + ' created successfully';
+              this.presentSuccess();
+              this.newActivity = new ActivityEntity();
+              this.categoryId = undefined;
+              this.timeSlotId = undefined;
+              this.availTimeSlots = new Array();
+              this.submitted = false;
+              createActivityForm.reset();
+            },
+            error: (error) => {
+              this.resultError = true;
+              this.resultSuccess = false;
+              this.message =
+                'An error has occurred while creating the new activity: ' +
+                error;
 
-            console.log('********** CreateNewActivityPage: ' + error);
-            this.presentWarning();
-          },
-        });
+              console.log('********** CreateNewActivityPage: ' + error);
+              this.presentWarning();
+            },
+          });
+      } else {
+        this.activityService
+          .createNewNoFacilityActivity(
+            this.newActivity.activityName,
+            this.newActivity.activityDescription,
+            this.newActivity.maxParticipants,
+            this.newActivity.tags,
+            this.categoryId,
+            this.timeSlotId,
+            year,
+            month,
+            day,
+            hour,
+            minute
+          )
+          .subscribe({
+            next: (response) => {
+              let newActivityId: number = response;
+              this.resultSuccess = true;
+              this.resultError = false;
+              this.message =
+                'New activity ' + newActivityId + ' created successfully';
+              this.presentSuccess();
+              this.newActivity = new ActivityEntity();
+              this.categoryId = undefined;
+              this.timeSlotId = undefined;
+              this.availTimeSlots = new Array();
+              this.submitted = false;
+              createActivityForm.reset();
+            },
+            error: (error) => {
+              this.resultError = true;
+              this.resultSuccess = false;
+              this.message =
+                'An error has occurred while creating the new activity: ' +
+                error;
+
+              console.log('********** CreateNewActivityPage: ' + error);
+              this.presentWarning();
+            },
+          });
+      }
     }
   }
 
