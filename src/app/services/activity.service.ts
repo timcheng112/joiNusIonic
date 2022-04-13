@@ -134,7 +134,7 @@ export class ActivityService {
       );
 
     console.log(createNewNoFacilityActivityReq);
-
+    console.log(createNewNoFacilityActivityReq.activityTags);
     return this.httpClient
       .put<any>(
         this.baseUrl + '/createNewNoFacilityActivity/',

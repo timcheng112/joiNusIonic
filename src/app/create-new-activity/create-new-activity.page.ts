@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ActivityEntity } from '../models/activity-entity';
 import { CategoryEntity } from '../models/category-entity';
@@ -40,7 +41,8 @@ export class CreateNewActivityPage implements OnInit {
     private facilityService: FacilityService,
     private categoryService: CategoryService,
     private timeSlotService: TimeSlotService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private router: Router
   ) {
     this.timeSlotId = null;
     this.newActivity = new ActivityEntity();
@@ -265,6 +267,7 @@ export class CreateNewActivityPage implements OnInit {
               this.message =
                 'New activity ' + newActivityId + ' created successfully';
               this.presentSuccess();
+              this.openNavViewAllActivitiesPage();
               this.newActivity = new ActivityEntity();
               this.categoryId = undefined;
               this.timeSlotId = undefined;
@@ -284,8 +287,13 @@ export class CreateNewActivityPage implements OnInit {
             },
           });
       }
+    } else {
+      this.presentWarning();
     }
-    this.presentWarning();
+  }
+
+  openNavViewAllActivitiesPage() {
+    this.router.navigate(['/viewAllActivities']);
   }
 
   async presentWarning() {
@@ -304,8 +312,6 @@ export class CreateNewActivityPage implements OnInit {
 
   addTag(tag: string) {
     console.log(tag);
-    console.log(this.minDateString);
-    console.log(this.maxDateString);
     if (tag != '') {
       this.newActivity.tags.push(tag);
     }

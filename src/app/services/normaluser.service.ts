@@ -57,15 +57,14 @@ export class NormalUserService {
       .pipe(catchError(this.handleError));
   }
 
-  createNewNormalUser(
-    newUser: NormalUserEntity
-  ): Observable<number> {
+  createNewNormalUser(newUser: NormalUserEntity): Observable<number> {
     let createNormalUserReq: CreateNormalUserReq = new CreateNormalUserReq(
       newUser
     );
-    console.log("sending this to netbeans");
+    console.log('sending this to netbeans');
     console.log(createNormalUserReq);
-    
+    console.log(createNormalUserReq.normalUser.interests);
+
     return this.httpClient
       .put<number>(
         this.baseUrl + '/createNewNormalUser/',
