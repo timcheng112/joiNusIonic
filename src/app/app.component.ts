@@ -12,7 +12,6 @@ export class AppComponent {
   ];
 
   public appPagesLogout = [
-    { title: 'Home', url: '/index', icon: 'home' },
     { title: 'Login', url: '/login', icon: 'lock-closed' },
     { title: 'Register', url: '/register', icon: 'person-add' },
   ];
