@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ActivityEntity } from '../models/activity-entity';
-import { CommentEntity } from '../models/comment-entity';
 import { ActivityService } from '../services/activity.service';
 
 @Component({
@@ -12,22 +11,29 @@ import { ActivityService } from '../services/activity.service';
 })
 export class ViewActivityPopupPage implements OnInit {
   @Input() activityBeingViewed: ActivityEntity;
+  @Input() isUserInActivity: Boolean;
   comment: string;
+  type: string;
 
   constructor(
     private modalController: ModalController,
     private activityService: ActivityService,
     public alertController: AlertController
-  ) { }
+  ) {
+    this.type = 'details';
+  }
   ngOnInit() {
     this.getActivityByActivityId();
   }
 
   getActivityByActivityId() {
+    console.log('getting activity by id');
+    console.log(this.activityBeingViewed);
     this.activityService
       .getActivityByActivityId(this.activityBeingViewed.activityId)
       .subscribe({
         next: (response) => {
+          console.log('getting activity by id success');
           if (response.booking != null) {
             let date: Date = response.booking.timeSlot.timeSlotTime;
             let dateString: string = date.toString();
@@ -87,12 +93,69 @@ export class ViewActivityPopupPage implements OnInit {
       });
   }
 
+  segmentChanged(ev: any) {
+    console.log('Segment changed to ' + ev.target.value);
+    this.type = ev.target.value;
+  }
+
   signUpForActivity() {
     this.activityService
       .signUpForActivity(this.activityBeingViewed.activityId)
       .subscribe({
         next: (response) => {
+          if (response.booking != null) {
+            let date: Date = response.booking.timeSlot.timeSlotTime;
+            let dateString: string = date.toString();
+
+            let newDate: Date = new Date(
+              parseInt(dateString.slice(0, 4)),
+              parseInt(dateString.slice(5, 7)) - 1,
+              parseInt(dateString.slice(8, 10)),
+              parseInt(dateString.slice(11, 13)),
+              parseInt(dateString.slice(14, 16)),
+              parseInt(dateString.slice(17, 19))
+            );
+
+            newDate.setUTCHours(newDate.getUTCHours() + 8);
+            newDate.setUTCSeconds(0);
+            response.booking.timeSlot.timeSlotTime = newDate;
+
+            let date2: Date = response.booking.creationDate;
+            let dateString2: string = date2.toString();
+
+            let newDate2: Date = new Date(
+              parseInt(dateString2.slice(0, 4)),
+              parseInt(dateString2.slice(5, 7)) - 1,
+              parseInt(dateString2.slice(8, 10)),
+              parseInt(dateString2.slice(11, 13)),
+              parseInt(dateString2.slice(14, 16)),
+              parseInt(dateString2.slice(17, 19))
+            );
+
+            newDate2.setUTCHours(newDate2.getUTCHours() + 8);
+            newDate2.setUTCSeconds(0);
+            response.booking.creationDate = newDate2;
+
+            for (var val of response.comments) {
+              let date3: Date = val.commentDate;
+              let dateString3: string = date3.toString();
+
+              let newDate3: Date = new Date(
+                parseInt(dateString3.slice(0, 4)),
+                parseInt(dateString3.slice(5, 7)) - 1,
+                parseInt(dateString3.slice(8, 10)),
+                parseInt(dateString3.slice(11, 13)),
+                parseInt(dateString3.slice(14, 16)),
+                parseInt(dateString3.slice(17, 19))
+              );
+
+              newDate3.setUTCHours(newDate3.getUTCHours() + 8);
+              newDate3.setUTCSeconds(0);
+              val.commentDate = newDate3;
+            }
+          }
           this.activityBeingViewed = response;
+          this.isUserInActivity = true;
           console.log('successful sign up');
         },
         error: (error) => {
@@ -158,7 +221,8 @@ export class ViewActivityPopupPage implements OnInit {
         .addComment(this.comment, this.activityBeingViewed.activityId)
         .subscribe({
           next: (response) => {
-            let commentId: number = response;
+            console.log('add comment successful');
+            // this.activityBeingViewed = response;
             addCommentForm.reset();
             this.getActivityByActivityId();
           },

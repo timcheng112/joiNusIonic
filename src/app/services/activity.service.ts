@@ -47,6 +47,11 @@ export class ActivityService {
   }
 
   getActivityByActivityId(activityId: number): Observable<ActivityEntity> {
+    console.log(
+      activityId,
+      this.sessionService.getUsername(),
+      this.sessionService.getPassword()
+    );
     return this.httpClient
       .get<ActivityEntity>(
         this.baseUrl +
