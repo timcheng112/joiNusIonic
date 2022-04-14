@@ -31,9 +31,16 @@
             <ion-input type="text" id="email" name="email" [(ngModel)]="thisUser.email" required="true"
               #name="ngModel"></ion-input>
           </ion-item>
-          
+
           <ion-item>
-            <ion-label><b>Interests</b></ion-label>
+            <ion-label><b>Current interests</b></ion-label>
+            <ul>
+              <li *ngFor="let i of thisUser.interests">{{i.categoryName}}</li>
+            </ul>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Reselect interests</b></ion-label>
             <ion-select id="selectedInterests"
             name="selectedInterests" required="false" [(ngModel)]="selectedInterests" multiple="true" ok-text="Confirm" cancel-text="Cancel">
               <ion-select-option *ngFor="let interest of allInterests" [value]="interest" >{{interest.categoryName}}</ion-select-option>
