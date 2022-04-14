@@ -51,10 +51,10 @@
   </ion-card>
 
   <ion-card color="primary" button="true" [routerLink]="['/view-leaderboard']">
-    <ion-card-content>
+    <ion-card-content style="opacity: 90%">
       <ion-card-title style="font-weight: bold; color: #000000">
-        joiNus Leaderboards</ion-card-title
-      >
+        joiNus Leaderboards
+      </ion-card-title>
       <ion-list>
         <ion-item *ngFor="let index of [0,1,2]">
           <ion-avatar slot="start">
@@ -63,6 +63,29 @@
           <ion-label *ngIf="!leaderboard.length == 0">
             <h2>{{leaderboard[index].name}}</h2>
             <h3>Social Credits: {{leaderboard[index].socialCredits}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="primary">
+    <ion-card-content style="opacity: 90%">
+      <ion-card-title style="font-weight: bold; color: #000000">
+        Your Schedule:
+      </ion-card-title>
+
+      <ion-list>
+        <ion-item *ngFor="let index of [0,1,2]">
+          <ion-label *ngIf="!activities.length == 0">
+            <h2>{{activities[index].activityName}}</h2>
+            <h4 class="ion-text-wrap">
+              Activity Description: {{activities[index].activityDescription}}<br />
+              Location:
+              {{activities[index].booking.timeSlot.facility.facilityName}}<br />
+              Date:
+              {{getDateFormat(activities[index].booking.timeSlot.timeSlotTime)}}<br />
+            </h4>
           </ion-label>
         </ion-item>
       </ion-list>
