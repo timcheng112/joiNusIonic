@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{userToView.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+
+      <ion-col text-center>
+        <ion-item>
+          <ion-label><b>Social Credits</b></ion-label>
+          {{userToView.socialCredits}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Interests</b></ion-label>
+          <ul>
+            <li *ngFor="let i of userToView.interests">{{i.categoryName}}</li>
+          </ul>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="closeModel()">Close</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
