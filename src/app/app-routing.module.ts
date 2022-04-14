@@ -108,7 +108,11 @@ const routes: Routes = [
     loadChildren: () => import('./edit-my-profile/edit-my-profile.module').then(
        m => m.EditMyProfilePageModule),
        
+  },  {
+    path: 'create-gallery-post',
+    loadChildren: () => import('./create-gallery-post/create-gallery-post.module').then( m => m.CreateGalleryPostPageModule)
   }
+
 
 ];
 

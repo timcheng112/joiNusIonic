@@ -15,6 +15,7 @@ import { AddCommentReq } from '../models/add-comment-req';
 import { SignUpForActivityReq } from '../models/sign-up-for-activity-req';
 import { PunishReq } from '../models/punish-req';
 import { CreateNewNoFacilityActivityReq } from '../models/create-new-no-facility-activity-req';
+import { CreateGalleryPostReq } from '../models/create-gallery-post-req';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -168,6 +169,34 @@ export class ActivityService {
 
     return this.httpClient
       .put<any>(this.baseUrl + '/addComment/', addCommentReq, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  createGalleryPost(
+    imagePath: string | undefined,
+    imageDescription: string | undefined,
+    datePosted: Date | undefined,
+    postedBy: NormalUserEntity | undefined,
+    activityId: number | null
+  ): Observable<any> {
+    let createGalleryPostReq: CreateGalleryPostReq = new CreateGalleryPostReq(
+      this.sessionService.getUsername(),
+      this.sessionService.getPassword(),
+      imagePath,
+      imageDescription,
+      datePosted,
+      postedBy,
+      activityId
+    );
+
+    console.log(createGalleryPostReq);
+
+    return this.httpClient
+      .put<any>(
+        this.baseUrl + '/createGalleryPost/',
+        createGalleryPostReq,
+        httpOptions
+      )
       .pipe(catchError(this.handleError));
   }
 

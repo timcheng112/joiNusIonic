@@ -13,6 +13,7 @@
     </ion-segment>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ng-container [ngSwitch]="type">
     <ion-list *ngSwitchCase="'details'">
@@ -104,6 +105,39 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'gallery'">
+      <ion-card style="text-align: center">
+        <ion-card-content>
+          <ion-button (click)="openIonModal()" ion-button block>
+            Upload Post
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngFor="let image of activityBeingViewed.gallery">
+        <ion-card-content>
+          <ion-img src="{{image.imagePath}}"></ion-img>
+          <ion-item>
+            <ion-avatar slot="start">
+              <img
+                src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+              />
+            </ion-avatar>
+            <ion-label
+              ><h3 class="ion-text-wrap">
+                {{image.postedBy.username}} {{image.datePosted}}
+              </h3>
+              <p class="ion-text-wrap">{{image.imageDescription}}</p></ion-label
+            >
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+      <ion-card style="text-align: center">
+        <ion-card-content>
+          <ion-button (click)="closeModel()">Close</ion-button>
+        </ion-card-content>
+      </ion-card>
     </ion-list>
   </ng-container>
 </ion-content>
