@@ -77,7 +77,7 @@
 
       <ion-list>
         <ion-item *ngFor="let index of [0,1,2]">
-          <ion-label *ngIf="!activities.length == 0">
+          <ion-label *ngIf="activities.length > index">
             <h2>{{activities[index].activityName}}</h2>
             <h4 class="ion-text-wrap">
               Activity Description: {{activities[index].activityDescription}}<br />
