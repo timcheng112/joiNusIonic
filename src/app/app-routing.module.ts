@@ -105,11 +105,32 @@ const routes: Routes = [
   },
   {
     path: 'edit-my-profile',
-    loadChildren: () => import('./edit-my-profile/edit-my-profile.module').then(
-       m => m.EditMyProfilePageModule),
-       
-  }
-
+    loadChildren: () =>
+      import('./edit-my-profile/edit-my-profile.module').then(
+        (m) => m.EditMyProfilePageModule
+      ),
+  },
+  {
+    path: 'create-gallery-post',
+    loadChildren: () =>
+      import('./create-gallery-post/create-gallery-post.module').then(
+        (m) => m.CreateGalleryPostPageModule
+      ),
+  },
+  {
+    path: 'search-for-users',
+    loadChildren: () =>
+      import('./search-for-users/search-for-users.module').then(
+        (m) => m.SearchForUsersPageModule
+      ),
+  },
+  {
+    path: 'view-user-popup',
+    loadChildren: () =>
+      import('./view-user-popup/view-user-popup.module').then(
+        (m) => m.ViewUserPopupPageModule
+      ),
+  },
 ];
 
 @NgModule({

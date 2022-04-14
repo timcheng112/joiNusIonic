@@ -51,6 +51,15 @@ export class NormalUserService {
       .pipe(catchError(this.handleError));
   }
 
+  retrieveAllNormalUsers(
+  ): Observable<NormalUserEntity[]> {
+    return this.httpClient
+      .get<NormalUserEntity[]>(
+        this.baseUrl + '/retrieveAllNormalUsers'
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   profile(productId: number): Observable<NormalUserEntity> {
     return this.httpClient
       .get<NormalUserEntity>(this.baseUrl + '/profile/')

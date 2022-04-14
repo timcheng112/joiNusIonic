@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
+import { CreateGalleryPostPage } from '../create-gallery-post/create-gallery-post.page';
 import { ActivityEntity } from '../models/activity-entity';
 import { ActivityService } from '../services/activity.service';
 
@@ -84,6 +85,24 @@ export class ViewActivityPopupPage implements OnInit {
               newDate3.setUTCSeconds(0);
               val.commentDate = newDate3;
             }
+
+            for (var image of response.gallery) {
+              let date4: Date = image.datePosted;
+              let dateString4: string = date4.toString();
+
+              let newDate4: Date = new Date(
+                parseInt(dateString4.slice(0, 4)),
+                parseInt(dateString4.slice(5, 7)) - 1,
+                parseInt(dateString4.slice(8, 10)),
+                parseInt(dateString4.slice(11, 13)),
+                parseInt(dateString4.slice(14, 16)),
+                parseInt(dateString4.slice(17, 19))
+              );
+
+              newDate4.setUTCHours(newDate4.getUTCHours() + 8);
+              newDate4.setUTCSeconds(0);
+              image.datePosted = newDate4;
+            }
           }
           this.activityBeingViewed = response;
         },
@@ -91,6 +110,17 @@ export class ViewActivityPopupPage implements OnInit {
           console.log('********** ViewActivityPopupComponent.ts: ' + error);
         },
       });
+  }
+
+  async openIonModal() {
+    const modal = await this.modalController.create({
+      component: CreateGalleryPostPage,
+      componentProps: {
+        activityBeingViewed: this.activityBeingViewed,
+      },
+    });
+    modal.onDidDismiss().then(() => {});
+    return await modal.present();
   }
 
   segmentChanged(ev: any) {
