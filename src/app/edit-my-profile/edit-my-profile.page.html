@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Edit My Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #editNormalUserForm="ngForm" (ngSubmit)="edit(editNormalUserForm)">
+    <ion-card>
+      <ion-card-content>
+        <ion-card-header>
+          <ion-card-title>Edit My Profile</ion-card-title>
+        </ion-card-header>
+
+        <ion-list>
+          <ion-item>
+            <ion-label><b>Username</b></ion-label>
+            {{thisUser.username}}
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Name</b></ion-label>
+            <ion-input type="text" id="name" name="name" [(ngModel)]="thisUser.name" required="true"
+              #name="ngModel"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Email</b></ion-label>
+            <ion-input type="text" id="email" name="email" [(ngModel)]="thisUser.email" required="true"
+              #name="ngModel"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label><b>Interests</b></ion-label>
+            <ion-select id="selectedInterests"
+            name="selectedInterests" required="false" [(ngModel)]="selectedInterests" multiple="true" ok-text="Confirm" cancel-text="Cancel">
+              <ion-select-option *ngFor="let interest of allInterests" [value]="interest" >{{interest.categoryName}}</ion-select-option>
+
+            </ion-select>
+          </ion-item>
+
+        </ion-list>
+
+
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card style="text-align: center">
+      <ion-card-content>
+        <ion-button (click)="back()"> Cancel </ion-button>
+        <ion-button type="submit" ion-button block> Save Edits </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <h6 style="margin-left: 10px">&copy; 2022 IS3106.</h6>
+  </ion-toolbar>
+</ion-footer>

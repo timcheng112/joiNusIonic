@@ -74,6 +74,23 @@ export class NormalUserService {
       .pipe(catchError(this.handleError));
   }
 
+  editNormalUser(editUser: NormalUserEntity): Observable<number> {
+    let createNormalUserReq: CreateNormalUserReq = new CreateNormalUserReq(
+      editUser
+    );
+    console.log('sending this to netbeans');
+    console.log(createNormalUserReq);
+    console.log(createNormalUserReq.normalUser.interests);
+
+    return this.httpClient
+      .post<number>(
+        this.baseUrl + '/editNormalUser/',
+        createNormalUserReq,
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   retrieveLeaderboard(): Observable<NormalUserEntity[]> {
     return this.httpClient
       .get<NormalUserEntity[]>(this.baseUrl + '/retrieveLeaderboard')
