@@ -20,6 +20,21 @@
             <li *ngFor="let i of userToView.interests">{{i.categoryName}}</li>
           </ul>
         </ion-item>
+
+        <ion-item>
+          <ion-label><b>Activities Hosting</b></ion-label>
+          <ul>
+            <li *ngFor="let a of userToView.activitiesOwned">{{a.activityName}}</li>
+          </ul>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Activities Participated</b></ion-label>
+          <ul>
+            <li *ngFor="let a of userToView.activitiesParticipated">{{a.activityName}}</li>
+          </ul>
+        </ion-item>
+
       </ion-col>
 
     </ion-row>

@@ -1,3 +1,4 @@
+import { ActivityEntity } from "./activity-entity";
 import { CategoryEntity } from "./category-entity";
 
 export class NormalUserEntity {
@@ -9,6 +10,8 @@ export class NormalUserEntity {
   socialCredits: number | undefined;
   bookingTokens: number | undefined;
   interests: CategoryEntity[] | undefined;
+  activitiesParticipated: ActivityEntity[] | undefined;
+  activitiesOwned: ActivityEntity[] | undefined;
 
   constructor(
     userId?: number,
@@ -18,7 +21,9 @@ export class NormalUserEntity {
     email?: string,
     socialCredits?: number,
     bookingTokens?: number,
-    interests?: CategoryEntity[]
+    interests?: CategoryEntity[],
+    activitiesParticipated?: ActivityEntity[],
+    activitiesOwned?: ActivityEntity[]
   ) {
     this.userId = userId;
     this.username = username;
@@ -28,5 +33,7 @@ export class NormalUserEntity {
     this.socialCredits = socialCredits;
     this.bookingTokens = bookingTokens;
     this.interests = interests;
+    this.activitiesParticipated = activitiesParticipated;
+    this.activitiesOwned = activitiesOwned;
   }
 }

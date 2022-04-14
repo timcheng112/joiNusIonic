@@ -13,6 +13,8 @@ export class ViewUserPopupPage implements OnInit {
   constructor(private modalController: ModalController) { }
 
   ngOnInit() {
+    console.log("Interests: " + this.userToView.interests)
+    console.log("Activities: " + this.userToView.activitiesOwned)
   }
   async closeModel() {
     await this.modalController.dismiss();
