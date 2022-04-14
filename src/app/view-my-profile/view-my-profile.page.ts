@@ -28,6 +28,7 @@ export class ViewMyProfilePage implements OnInit {
   ionViewWillEnter() {
     this.refreshUser();
     this.normalUser = this.sessionService.getCurrentNormalUser();
+    console.log("Interests: " + this.sessionService.getCurrentNormalUser().interests)
   }
 
   editMyProfile() {
