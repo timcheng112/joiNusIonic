@@ -1,85 +1,109 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{activityBeingViewed.activityName}}</ion-title>
+    <ion-segment (ionChange)="segmentChanged($event)" value="all">
+      <ion-segment-button value="details">
+        <ion-label>Details</ion-label>
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="gallery">
+        <ion-label>Gallery</ion-label>
+        <ion-icon name="images"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        <ion-item lines="inset">
-          <ion-label>Activity ID: {{activityBeingViewed.activityId}}</ion-label>
-        </ion-item>
-        <ion-item lines="inset">
-          <ion-label class="ion-text-wrap"
-            >Activity Description:
-            {{activityBeingViewed.activityDescription}}</ion-label
-          >
-        </ion-item>
-        <ion-item lines="inset">
-          <ion-label
-            >Number of Participants:
-            {{activityBeingViewed.numberOfParticipants}}/{{activityBeingViewed.maxParticipants}}</ion-label
-          >
-        </ion-item>
-        <ion-item lines="inset">
-          <ion-label class="ion-text-wrap"
-            >Category: {{activityBeingViewed.category.categoryName}}</ion-label
-          >
-        </ion-item>
-        <ion-item lines="inset" *ngIf="activityBeingViewed.booking != null">
-          <ion-label class="ion-text-wrap">
-            Date: {{activityBeingViewed.booking.creationDate}}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="inset" *ngIf="activityBeingViewed.booking != null">
-          <ion-label class="ion-text-wrap">
-            Facility:
-            {{activityBeingViewed.booking.timeSlot.facility.facilityName}}
-          </ion-label>
-        </ion-item>
-        <ion-card
-          style="text-align: center"
-          *ngIf="!activityBeingViewed.activityOver"
-        >
-          <ion-card-content>
-            <ion-button ion-button expand="block" (click)="presentAlert()">
-              Join
-            </ion-button>
-          </ion-card-content>
-        </ion-card>
-        <h2>Comments Section</h2>
-        <form #addCommentForm="ngForm" (ngSubmit)="create(addCommentForm)">
-          <ion-item>
-            <ion-input
-              type="text"
-              id="comment"
-              name="comment"
-              placeholder="Add a comment..."
-              [(ngModel)]="comment"
-              required="true"
+  <ng-container [ngSwitch]="type">
+    <ion-list *ngSwitchCase="'details'">
+      <ion-grid>
+        <ion-row>
+          <ion-col text-center>
+            <ion-item lines="inset">
+              <ion-label
+                >Activity ID: {{activityBeingViewed.activityId}}</ion-label
+              >
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label class="ion-text-wrap"
+                >Activity Description:
+                {{activityBeingViewed.activityDescription}}</ion-label
+              >
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label
+                >Number of Participants:
+                {{activityBeingViewed.numberOfParticipants}}/{{activityBeingViewed.maxParticipants}}</ion-label
+              >
+            </ion-item>
+            <ion-item lines="inset">
+              <ion-label class="ion-text-wrap"
+                >Category:
+                {{activityBeingViewed.category.categoryName}}</ion-label
+              >
+            </ion-item>
+            <ion-item lines="inset" *ngIf="activityBeingViewed.booking != null">
+              <ion-label class="ion-text-wrap">
+                Date: {{activityBeingViewed.booking.creationDate}}
+              </ion-label>
+            </ion-item>
+            <ion-item lines="inset" *ngIf="activityBeingViewed.booking != null">
+              <ion-label class="ion-text-wrap">
+                Facility:
+                {{activityBeingViewed.booking.timeSlot.facility.facilityName}}
+              </ion-label>
+            </ion-item>
+            <ion-card
+              style="text-align: center"
+              *ngIf="!activityBeingViewed.activityOver"
             >
-            </ion-input>
-            <ion-button type="submit">Comment</ion-button>
-          </ion-item>
-        </form>
-        <ion-item *ngFor="let comment of activityBeingViewed.comments">
-          <ion-avatar slot="start">
-            <img
-              src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-            />
-          </ion-avatar>
-          <ion-label
-            ><h3>{{comment.commentOwner.username}} {{comment.commentDate}}</h3>
-            <p>{{comment.text}}</p></ion-label
-          >
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col text-center>
-        <ion-button (click)="closeModel()">Close</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+              <ion-card-content>
+                <ion-button
+                  ion-button
+                  expand="block"
+                  (click)="presentAlert()"
+                  disabled="{{isUserInActivity}}"
+                >
+                  Join
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+            <h2>Comments Section</h2>
+            <form #addCommentForm="ngForm" (ngSubmit)="create(addCommentForm)">
+              <ion-item>
+                <ion-input
+                  type="text"
+                  id="comment"
+                  name="comment"
+                  placeholder="Add a comment..."
+                  [(ngModel)]="comment"
+                  required="true"
+                >
+                </ion-input>
+                <ion-button type="submit">Comment</ion-button>
+              </ion-item>
+            </form>
+            <ion-item *ngFor="let comment of activityBeingViewed.comments">
+              <ion-avatar slot="start">
+                <img
+                  src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+                />
+              </ion-avatar>
+              <ion-label
+                ><h3>
+                  {{comment.commentOwner.username}} {{comment.commentDate}}
+                </h3>
+                <p>{{comment.text}}</p></ion-label
+              >
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-center>
+            <ion-button (click)="closeModel()">Close</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ng-container>
 </ion-content>

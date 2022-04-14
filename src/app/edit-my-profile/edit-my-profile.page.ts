@@ -52,6 +52,7 @@ export class EditMyProfilePage implements OnInit {
     this.thisUser = this.sessionService.getCurrentNormalUser();
     console.log("Name: " + this.sessionService.getCurrentNormalUser().name);
     console.log("Interests: " + this.sessionService.getCurrentNormalUser().interests);
+    this.selectedInterests = this.sessionService.getCurrentNormalUser().interests;
   }
 
   selectInterests(interestPicked : CategoryEntity) {
@@ -92,7 +93,7 @@ export class EditMyProfilePage implements OnInit {
             this.resultSuccess = true;
             this.resultError = false;
             this.message =
-              'User ID ' + editUserId + ' updated successfully';
+              'Profile updated successfully';
             this.presentSuccess();
             this.thisUser = new NormalUserEntity();
             this.selectedInterests = new Array();
@@ -123,8 +124,6 @@ export class EditMyProfilePage implements OnInit {
             }
           }
         });
-    
-        //window.location.reload();
 
     } else {
       this.message = "Error with fields, please try again"
@@ -141,10 +140,10 @@ export class EditMyProfilePage implements OnInit {
     });
 
     await alert.present();
-    window.location.reload();
 
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
+    window.location.reload();
   }
 
   async presentWarning() {
@@ -162,7 +161,7 @@ export class EditMyProfilePage implements OnInit {
   }
 
   back() {
-    this.router.navigate(["/index"]);
+    this.router.navigate(["/view-my-profile"]);
   }
 
   refreshUser() {
