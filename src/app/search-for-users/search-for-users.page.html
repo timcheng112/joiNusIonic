@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-searchbar (ionChange)="search($event.target.value)"></ion-searchbar>
-  <ion-list class="bg-transparent " *ngFor="let user of allUsers" color="none">
+  <ion-list class="bg-transparent" color="none">
     <ion-button color="tertiary" expand="full" *ngFor="let user of allUsers" (click)="openIonModal(user)">
       <ion-icon slot="start" name="person-outline"></ion-icon> {{user.name}}
       (<ion-icon name="ribbon-outline"></ion-icon>{{user.socialCredits}})
