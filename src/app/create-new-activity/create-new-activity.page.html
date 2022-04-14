@@ -107,7 +107,7 @@
             <ion-label><b>Tags: </b></ion-label>
             <ion-input
               type="text"
-              placeholder="Casual"
+              placeholder="Hit enter to submit your tag"
               id="tags"
               name="tags"
               [(ngModel)]="tag"
@@ -163,12 +163,11 @@
             <ion-label><b>Location: </b></ion-label>
             <ion-input
               type="text"
-              placeholder=""
+              placeholder="(Optional) Fill in a location"
               id="selLocation"
               name="selLocation"
               [(ngModel)]="location"
               #selLocation="ngModel"
-              required="true"
             >
             </ion-input>
           </ion-item>
