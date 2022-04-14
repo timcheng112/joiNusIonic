@@ -108,7 +108,15 @@ const routes: Routes = [
     loadChildren: () => import('./edit-my-profile/edit-my-profile.module').then(
        m => m.EditMyProfilePageModule),
        
+  },  {
+    path: 'search-for-users',
+    loadChildren: () => import('./search-for-users/search-for-users.module').then( m => m.SearchForUsersPageModule)
+  },
+  {
+    path: 'view-user-popup',
+    loadChildren: () => import('./view-user-popup/view-user-popup.module').then( m => m.ViewUserPopupPageModule)
   }
+
 
 ];
 

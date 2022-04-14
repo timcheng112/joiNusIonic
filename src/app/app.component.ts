@@ -18,9 +18,9 @@ export class AppComponent {
 
   public appPagesUserAdministration = [
     {
-      title: 'View All Upcoming Activities',
-      url: '/viewAllActivities',
-      icon: 'today',
+      title: 'View My Profile',
+      url: '/view-my-profile',
+      icon: 'person',
     },
     {
       title: 'View My Activities',
@@ -28,14 +28,19 @@ export class AppComponent {
       icon: 'glasses',
     },
     {
-      title: 'View My Profile',
-      url: '/view-my-profile',
-      icon: 'person',
+      title: 'View All Upcoming Activities',
+      url: '/viewAllActivities',
+      icon: 'today',
     },
     {
       title: 'View Leaderboard',
       url: '/view-leaderboard',
       icon: 'podium',
+    },
+    {
+      title: 'Search for Users',
+      url: '/search-for-users',
+      icon: 'search-outline',
     },
   ];
   constructor(public sessionService: SessionService) {}
