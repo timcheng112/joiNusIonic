@@ -37,10 +37,11 @@ export class ActivityService {
       .pipe(catchError(this.handleError));
   }
 
-  getActivitiesIP(activityId: number): Observable<ActivityEntity[]> {
+  getActivitiesIP(userId: number): Observable<ActivityEntity[]> {
+    console.log('called getActivtiesIP in activity.service.ts');
     return this.httpClient
       .get<ActivityEntity[]>(
-        this.baseUrl + '/retrieveAllActivitiesIP/' + activityId
+        this.baseUrl + '/retrieveAllActivitiesIP/' + userId
       )
       .pipe(catchError(this.handleError));
   }
