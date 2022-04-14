@@ -23,6 +23,7 @@ export class IndexPage implements OnInit {
 
   ngOnInit() {
     console.log('On Init');
+    this.refreshUser();
 
     this.userId = this.sessionService.getUserId();
     const tempId: number = this.sessionService.getUserId();
@@ -60,5 +61,23 @@ export class IndexPage implements OnInit {
       },
     });
     // console.log(this.leaderboard);
+  }
+  refreshUser() {
+    //refresh currentNormalUser
+    this.normalUserService
+      .normalUserLogin(
+        this.sessionService.getUsername(),
+        this.sessionService.getPassword()
+      )
+      .subscribe({
+        next: (response) => {
+          let normalUser: NormalUserEntity = response;
+          this.sessionService.setCurrentNormalUser(normalUser);
+          console.log(
+            'Refresh for name: ' +
+              this.sessionService.getCurrentNormalUser().name
+          );
+        },
+      });
   }
 }
