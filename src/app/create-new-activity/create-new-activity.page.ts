@@ -88,6 +88,7 @@ export class CreateNewActivityPage implements OnInit {
   clear() {
     this.submitted = false;
     this.newActivity = new ActivityEntity();
+    this.newActivity.tags = new Array();
   }
 
   getAvailTimeSlotsByDate(datePicked: Date) {
@@ -161,7 +162,12 @@ export class CreateNewActivityPage implements OnInit {
   }
 
   create(createActivityForm: NgForm, datePicked: Date) {
-    if (!(this.location === '')) {
+    if (
+      !(
+        this.location === '' ||
+        this.newActivity.activityDescription.includes('; Location:')
+      )
+    ) {
       this.newActivity.activityDescription =
         this.newActivity.activityDescription + '; Location: ' + this.location;
     }

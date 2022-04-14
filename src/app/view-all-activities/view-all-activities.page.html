@@ -35,11 +35,19 @@
         {{activity.numberOfParticipants}}/{{activity.maxParticipants}}
       </p>
       <p>Category: {{activity.category.categoryName}}</p>
-      <!-- <p>Tags: {{activity.tags}}</p> -->
-      <!-- <p *ngIf="activity.booking.timeSlot.timeSlotTime != null">
-        {{activity.booking.timeSlot.timeSlotTime}}
+      <!-- <p>Tag:
+      <p *ngFor="let tag of activity.tags"> {{tag}}</p>
       </p> -->
-      <!-- Date: {{activity.booking.creationDate}} -->
+      <p>Date: {{activity.booking.timeSlot.timeSlotTime}}</p>
+      <p>
+        Tags:
+        <ion-badge
+          color="primary"
+          *ngFor="let tag of activity.tags"
+          style="margin-right: 10px"
+          >{{tag}}</ion-badge
+        >
+      </p>
     </ion-card-content>
     <ion-button id="view-activity-button" (click)="openIonModal(activity)"
       >View Activity</ion-button

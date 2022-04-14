@@ -11,7 +11,7 @@
           <ion-label>Activity ID: {{activityBeingViewed.activityId}}</ion-label>
         </ion-item>
         <ion-item lines="inset">
-          <ion-label
+          <ion-label class="ion-text-wrap"
             >Activity Description:
             {{activityBeingViewed.activityDescription}}</ion-label
           >
@@ -23,22 +23,25 @@
           >
         </ion-item>
         <ion-item lines="inset">
-          <ion-label
+          <ion-label class="ion-text-wrap"
             >Category: {{activityBeingViewed.category.categoryName}}</ion-label
           >
         </ion-item>
         <ion-item lines="inset" *ngIf="activityBeingViewed.booking != null">
-          <ion-label>
+          <ion-label class="ion-text-wrap">
             Date: {{activityBeingViewed.booking.creationDate}}
           </ion-label>
         </ion-item>
         <ion-item lines="inset" *ngIf="activityBeingViewed.booking != null">
-          <ion-label>
+          <ion-label class="ion-text-wrap">
             Facility:
             {{activityBeingViewed.booking.timeSlot.facility.facilityName}}
           </ion-label>
         </ion-item>
-        <ion-card style="text-align: center" *ngIf="!activityBeingViewed.activityOver">
+        <ion-card
+          style="text-align: center"
+          *ngIf="!activityBeingViewed.activityOver"
+        >
           <ion-card-content>
             <ion-button ion-button expand="block" (click)="presentAlert()">
               Join
