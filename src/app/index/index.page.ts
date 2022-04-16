@@ -81,6 +81,7 @@ export class IndexPage implements OnInit {
           newDate2.setUTCSeconds(0);
           val.booking.creationDate = newDate2;
         }
+        response = response.filter((item) => (!item.activityOver));
         this.activities = response;
       },
       error: (error) => {

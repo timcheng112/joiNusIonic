@@ -20,6 +20,7 @@ export class ViewMyActivitiesPage implements OnInit {
   type: string = 'all';
   modalData: any;
 
+
   constructor(
     private activityService: ActivityService,
     public modalController: ModalController,
@@ -31,7 +32,12 @@ export class ViewMyActivitiesPage implements OnInit {
   ngOnInit() {
     this.activityService.getActivities().subscribe({
       next: (response) => {
+        console.log("response is");
+        console.log(response);
         for (var val of response) {
+          console.log('before');
+          console.log(val.booking.timeSlot.timeSlotId);
+          console.log(val.booking.timeSlot.timeSlotTime);
           let date: Date = val.booking.timeSlot.timeSlotTime;
           let dateString: string = date.toString();
 
@@ -48,6 +54,11 @@ export class ViewMyActivitiesPage implements OnInit {
           newDate.setUTCSeconds(0);
           val.booking.timeSlot.timeSlotTime = newDate;
 
+          console.log('after');
+          console.log(val.booking.timeSlot.timeSlotTime);
+          console.log('before creation');
+          console.log(val.booking.creationDate);
+
           let date2: Date = val.booking.creationDate;
           let dateString2: string = date2.toString();
 
@@ -63,6 +74,10 @@ export class ViewMyActivitiesPage implements OnInit {
           newDate2.setUTCHours(newDate2.getUTCHours() + 8);
           newDate2.setUTCSeconds(0);
           val.booking.creationDate = newDate2;
+          console.log('after creation');
+          console.log(val.booking.creationDate);
+          newDate = new Date();
+          newDate2 = new Date();
         }
         this.activities = response;
       },
@@ -172,7 +187,7 @@ export class ViewMyActivitiesPage implements OnInit {
     }
 
     for (var val of participants) {
-      console.log(val);
+      // console.log(val);
       if (
         val.userId == this.userId &&
         activity.booking.timeSlot.timeSlotTime < new Date()

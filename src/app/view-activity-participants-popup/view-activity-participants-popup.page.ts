@@ -31,7 +31,12 @@ export class ViewActivityParticipantsPopupPage implements OnInit {
 
   ngOnInit() {
     this.participants = this.activityBeingViewed.participants;
-    this.absentUsers = this.activityBeingViewed.absentIds;
+    // this.absentUsers = this.activityBeingViewed.absentIds;
+    this.absentUsers = new Array<number>();
+    for (var val of this.activityBeingViewed.absentIds) {
+      this.absentUsers.push(val);
+    }
+    
     console.log(this.absentUsers);
     var preList = new Array<boolean>();
     for (var i = 0; i < this.participants.length; i++) {
@@ -77,9 +82,20 @@ export class ViewActivityParticipantsPopupPage implements OnInit {
   punishUser() {
     console.log("Punish User Method called");
     console.log("Absent Users are " + this.absentUsers);
+    console.log("Absent Ids are " + this.absentIds);
+    console.log("Activity Absent Ids are ");
+    console.log(this.activityBeingViewed.absentIds);
     for (var val of this.absentUsers) { // for ppl in temp list
+      console.log("val");
+      console.log(val);
+
+      if (this.activityBeingViewed.absentIds)
+
       if (!this.activityBeingViewed.absentIds.includes(val)) { // if not already banned 
+        console.log('should punish');
         this.absentIds.push(val); // add to new ban list
+      } else {
+        console.log('dont punish');
       }
     }
     console.log("Users to punish are " + this.absentIds);

@@ -28,7 +28,9 @@ export class ViewAllActivitiesPage implements OnInit {
     this.userId = this.sessionService.getUserId();
     this.activityService.getActivitiesIP(this.userId).subscribe({
       next: (response) => {
-        response = response.filter((item) => !item.activityOver);
+        console.log('first response');
+        console.log(response);
+        response = response.filter((item) => (!item.activityOver));
         for (var val of response) {
           let date: Date = val.booking.timeSlot.timeSlotTime;
           let dateString: string = date.toString();
@@ -62,6 +64,8 @@ export class ViewAllActivitiesPage implements OnInit {
           newDate2.setUTCSeconds(0);
           val.booking.creationDate = newDate2;
         }
+        console.log('final response');
+        console.log(response);
         this.activities = response;
       },
       error: (error) => {

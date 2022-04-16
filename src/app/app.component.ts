@@ -28,7 +28,7 @@ export class AppComponent {
       icon: 'glasses',
     },
     {
-      title: 'View All Upcoming Activities',
+      title: 'View Other Upcoming Activities',
       url: '/viewAllActivities',
       icon: 'today',
     },
