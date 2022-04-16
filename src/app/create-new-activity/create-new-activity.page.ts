@@ -91,46 +91,50 @@ export class CreateNewActivityPage implements OnInit {
     this.newActivity.tags = new Array();
   }
 
-  getAvailTimeSlotsByDate(datePicked: Date) {
+  getAvailTimeSlotsByDate(datePicked: Date, facilityId: number) {
     this.availTimeSlots = new Array();
     for (let timeSlot of this.timeSlots) {
-      let tempDate = timeSlot.timeSlotTime;
-      let tempDateString =
-        tempDate[0] +
-        tempDate[1] +
-        tempDate[2] +
-        tempDate[3] +
-        tempDate[4] +
-        tempDate[5] +
-        tempDate[6] +
-        tempDate[7] +
-        tempDate[8] +
-        tempDate[9];
-      let datePickedString =
-        datePicked[0] +
-        datePicked[1] +
-        datePicked[2] +
-        datePicked[3] +
-        datePicked[4] +
-        datePicked[5] +
-        datePicked[6] +
-        datePicked[7] +
-        datePicked[8] +
-        datePicked[9];
-      let tempDateTimeString = tempDate[11] + tempDate[12];
-      console.log(tempDate);
-      console.log(tempDateString);
-      console.log(datePickedString);
-      if (tempDateString === datePickedString) {
-        let year =
-          tempDateString[0] +
-          tempDateString[1] +
-          tempDateString[2] +
-          tempDateString[3];
-        let month = tempDateString[5] + tempDateString[6];
-        let day = tempDateString[8] + tempDateString[9];
-        let hour: number = +tempDateTimeString + 8;
-        this.availTimeSlots.push(new Date(year, month, day, hour, 0, 0, 0));
+      if (timeSlot.facility.facilityId === facilityId) {
+        let tempDate = timeSlot.timeSlotTime;
+        let tempDateString =
+          tempDate[0] +
+          tempDate[1] +
+          tempDate[2] +
+          tempDate[3] +
+          tempDate[4] +
+          tempDate[5] +
+          tempDate[6] +
+          tempDate[7] +
+          tempDate[8] +
+          tempDate[9];
+        let datePickedString =
+          datePicked[0] +
+          datePicked[1] +
+          datePicked[2] +
+          datePicked[3] +
+          datePicked[4] +
+          datePicked[5] +
+          datePicked[6] +
+          datePicked[7] +
+          datePicked[8] +
+          datePicked[9];
+        let tempDateTimeString = tempDate[11] + tempDate[12];
+        console.log('TempDateString: ' + tempDateString);
+        console.log('DatePickedString: ' + datePickedString);
+        if (tempDateString === datePickedString) {
+          let year =
+            tempDateString[0] +
+            tempDateString[1] +
+            tempDateString[2] +
+            tempDateString[3];
+          let month = tempDateString[5] + tempDateString[6];
+          let day = tempDateString[8] + tempDateString[9];
+          let hour: number = +tempDateTimeString + 8;
+          this.availTimeSlots.push(
+            new Date(year, month - 1, day, hour, 0, 0, 0)
+          );
+          console.log(new Date(year, month - 1, day, hour, 0, 0, 0));
+        }
       }
     }
     for (let availTimeSlot of this.availTimeSlots) {
@@ -232,6 +236,7 @@ export class CreateNewActivityPage implements OnInit {
               this.message =
                 'New activity ' + newActivityId + ' created successfully';
               this.presentSuccess();
+              this.openNavViewAllActivitiesPage();
               this.newActivity = new ActivityEntity();
               this.categoryId = undefined;
               this.timeSlotId = undefined;

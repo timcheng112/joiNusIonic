@@ -216,7 +216,8 @@
                 >{{timeslot.getHours()}}:00</ion-select-option
               >
             </ion-select>
-            <ion-button (click)="getAvailTimeSlotsByDate(datePicked)"
+            <ion-button
+              (click)="getAvailTimeSlotsByDate(datePicked, facilityId)"
               >Retrieve Timeslots</ion-button
             >
           </ion-item>
