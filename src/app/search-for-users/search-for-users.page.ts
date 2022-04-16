@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, IonSearchbar, ModalController } from '@ionic/angular';
+import { ActivityEntity } from '../models/activity-entity';
 import { NormalUserEntity } from '../models/normal-user-entity';
 import { NormalUserService } from '../services/normaluser.service';
 import { SessionService } from '../services/session.service';
+import { ViewActivityPopupPage } from '../view-activity-popup/view-activity-popup.page';
 import { ViewUserPopupPage } from '../view-user-popup/view-user-popup.page';
 
 @Component({
@@ -13,9 +15,15 @@ import { ViewUserPopupPage } from '../view-user-popup/view-user-popup.page';
   styleUrls: ['./search-for-users.page.scss'],
 })
 export class SearchForUsersPage implements OnInit {
+  @ViewChild('search', {static:false}) search: IonSearchbar
+
   thisUser: NormalUserEntity
   allUsers: NormalUserEntity[] | null
 
+  searchedItem: any
+  list: Array<Object> = []
+
+  //not used
   nameField: string | null
   searchResults: NormalUserEntity[] | null
   message: string | null
@@ -25,18 +33,18 @@ export class SearchForUsersPage implements OnInit {
     private normalUserService: NormalUserService,
     public alertController: AlertController,
     private sessionService: SessionService) {
+      
   }
 
   ngOnInit() {
     this.refreshUser;
     this.thisUser = this.sessionService.getCurrentNormalUser();
-    //maybe won't use
     this.normalUserService.retrieveAllNormalUsers().subscribe({
       next: (response) => {
-        this.allUsers = response;
+        this.list = response;
+        this.searchedItem = response;
       }
     })
-    this.searchResults = this.allUsers;
   }
 
   ionViewWillEnter() {
@@ -44,12 +52,16 @@ export class SearchForUsersPage implements OnInit {
     this.thisUser = this.sessionService.getCurrentNormalUser();
   }
 
-  search(query) {
-    if (!query) { // revert back to the original array if no query
-      this.searchResults = this.searchResults;
-    } else { // filter array by query
-      this.searchResults = this.allUsers.filter((user) => {
-        return (user.name.includes(query) || user.username.includes(query));
+  searchEvent(event) {
+    console.log(event.detail.value);
+    const val = event.target.value;
+    this.searchedItem = this.list;
+    // if (val == '') {
+    //   this.searchedItem = null;
+    // }
+    if (val && val.trim() != '') {
+      this.searchedItem = this.searchedItem.filter((item: any) => {
+        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
@@ -57,35 +69,6 @@ export class SearchForUsersPage implements OnInit {
   viewUser(event, user)
   {
     this.router.navigate(["/retrieveNormalUserById/" + user.userId]);
-  }
-
-  //maybe won't use
-  searchName() {
-    this.normalUserService.retrieveNormalUsersByName(this.nameField).subscribe({
-      next: (response) => {
-        this.searchResults = response;
-      },
-      error: (error) => {
-        this.message =
-          'An error has occurred while searching users: ' + error;
-        console.log('********** SearchForUsersPage: ' + error);
-        this.presentWarning();
-      }
-    })
-  }
-
-  async presentWarning() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Alert',
-      message: this.message,
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-
-    const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   async openIonModal(user: NormalUserEntity) {
@@ -97,6 +80,8 @@ export class SearchForUsersPage implements OnInit {
     });
     return await modal.present();
   }
+
+  
 
   refreshUser() {
     //refresh currentNormalUser
