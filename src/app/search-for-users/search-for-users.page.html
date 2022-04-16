@@ -8,14 +8,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionChange)="search($event.target.value)"></ion-searchbar>
+  <ion-searchbar (ionChange)="searchEvent($event)" ></ion-searchbar>
   <ion-list class="bg-transparent" color="none">
-    <ion-button color="tertiary" expand="full" *ngFor="let user of allUsers" (click)="openIonModal(user)">
-      <ion-icon slot="start" name="person-outline"></ion-icon> {{user.name}}
-      (<ion-icon name="ribbon-outline"></ion-icon>{{user.socialCredits}})
-      <ion-badge color="secondary" *ngFor="let i of user.interests" style="margin-right: 10px">
+    <ion-item *ngFor="let item of searchedItem" (click)="openIonModal(item)">
+      <ion-icon slot="start" name="person-outline"></ion-icon> {{item.name}}
+      (<ion-icon name="ribbon-outline"></ion-icon>{{item.socialCredits}})
+      <ion-badge color="tertiary" *ngFor="let i of item.interests" style="margin-right: 10px">
         {{i.categoryName}}</ion-badge>
-    </ion-button>
+    </ion-item>
   </ion-list>
 
 </ion-content>
