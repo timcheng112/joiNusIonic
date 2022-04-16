@@ -35,6 +35,10 @@ export class ViewMyProfilePage implements OnInit {
     this.router.navigate(["/edit-my-profile"]);
   }
 
+  changePassword() {
+    this.router.navigate(["/change-password"]);
+  }
+
   back() {
     this.router.navigate(["/index"]);
   }

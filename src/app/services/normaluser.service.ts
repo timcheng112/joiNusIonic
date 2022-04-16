@@ -68,7 +68,7 @@ export class NormalUserService {
 
   createNewNormalUser(newUser: NormalUserEntity): Observable<number> {
     let createNormalUserReq: CreateNormalUserReq = new CreateNormalUserReq(
-      newUser
+      newUser, null
     );
     console.log('sending this to netbeans');
     console.log(createNormalUserReq);
@@ -85,7 +85,7 @@ export class NormalUserService {
 
   editNormalUser(editUser: NormalUserEntity): Observable<number> {
     let createNormalUserReq: CreateNormalUserReq = new CreateNormalUserReq(
-      editUser
+      editUser, null
     );
     console.log('sending this to netbeans');
     console.log(createNormalUserReq);
@@ -94,6 +94,20 @@ export class NormalUserService {
     return this.httpClient
       .post<number>(
         this.baseUrl + '/editNormalUser/',
+        createNormalUserReq,
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  changePassword(user: NormalUserEntity, newPassword: string): Observable<number> {
+    let createNormalUserReq: CreateNormalUserReq = new CreateNormalUserReq(
+      user, newPassword
+    );
+
+    return this.httpClient
+      .post<number>(
+        this.baseUrl + '/changePassword/',
         createNormalUserReq,
         httpOptions
       )

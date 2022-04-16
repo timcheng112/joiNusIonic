@@ -134,7 +134,11 @@ const routes: Routes = [
         (m) => m.ViewUserPopupPageModule
       ),
     canActivate: [AuthGuard],
+  },  {
+    path: 'change-password',
+    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
+
 ];
 
 @NgModule({
