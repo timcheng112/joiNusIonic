@@ -11,8 +11,11 @@ import { ActivityService } from '../services/activity.service';
   styleUrls: ['./view-activity-popup.page.scss'],
 })
 export class ViewActivityPopupPage implements OnInit {
+  // @Input() activities: ActivityEntity[];
+  // @Input() activityBeingViewedIndex: number;
   @Input() activityBeingViewed: ActivityEntity;
   @Input() isUserInActivity: Boolean;
+  // activityBeingViewed: ActivityEntity;
   comment: string;
   type: string;
 
@@ -23,6 +26,7 @@ export class ViewActivityPopupPage implements OnInit {
   ) {
     this.type = 'details';
   }
+
   ngOnInit() {
     this.getActivityByActivityId();
   }
@@ -119,7 +123,9 @@ export class ViewActivityPopupPage implements OnInit {
         activityBeingViewed: this.activityBeingViewed,
       },
     });
-    modal.onDidDismiss().then(() => {});
+    modal.onDidDismiss().then(() => {
+      this.getActivityByActivityId();
+    });
     return await modal.present();
   }
 

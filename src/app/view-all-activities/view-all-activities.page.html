@@ -14,9 +14,12 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-card expand="full" *ngFor="let activity of activities">
+  <ion-card
+    expand="full"
+    *ngFor="let activity of activities; let indexOfElement=index;"
+  >
     <ion-card-header>
-      <ion-card-title>{{activity.activityName}}</ion-card-title>
+      <ion-card-title> {{activity.activityName}}</ion-card-title>
     </ion-card-header>
     <!-- <ion-card-content>
       Activity ID: {{activity.activityId}}<br />
@@ -49,7 +52,7 @@
         >
       </p>
     </ion-card-content>
-    <ion-button id="view-activity-button" (click)="openIonModal(activity)"
+    <ion-button id="view-activity-button" (click)="openIonModal(indexOfElement)"
       >View Activity</ion-button
     >
     <strong *ngIf="modalData">{{modalData}}</strong>
