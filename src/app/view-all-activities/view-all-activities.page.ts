@@ -152,12 +152,13 @@ export class ViewAllActivitiesPage implements OnInit {
     return false;
   }
 
-  async openIonModal(activity: ActivityEntity) {
-    let isUserInActivityBoolean = this.isUserInActivity(activity);
+  async openIonModal(index: number) {
+    console.log(this.activities[index]);
+    let isUserInActivityBoolean = this.isUserInActivity(this.activities[index]);
     const modal = await this.modalController.create({
       component: ViewActivityPopupPage,
       componentProps: {
-        activityBeingViewed: activity,
+        activityBeingViewed: this.activities[index],
         isUserInActivity: isUserInActivityBoolean,
       },
     });

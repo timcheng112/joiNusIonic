@@ -109,6 +109,7 @@ const routes: Routes = [
       import('./edit-my-profile/edit-my-profile.module').then(
         (m) => m.EditMyProfilePageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'create-gallery-post',
@@ -116,6 +117,7 @@ const routes: Routes = [
       import('./create-gallery-post/create-gallery-post.module').then(
         (m) => m.CreateGalleryPostPageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'search-for-users',
@@ -123,6 +125,7 @@ const routes: Routes = [
       import('./search-for-users/search-for-users.module').then(
         (m) => m.SearchForUsersPageModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'view-user-popup',
@@ -130,6 +133,7 @@ const routes: Routes = [
       import('./view-user-popup/view-user-popup.module').then(
         (m) => m.ViewUserPopupPageModule
       ),
+    canActivate: [AuthGuard],
   },
 ];
 
