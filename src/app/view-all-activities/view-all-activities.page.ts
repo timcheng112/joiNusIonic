@@ -66,7 +66,29 @@ export class ViewAllActivitiesPage implements OnInit {
         }
         console.log('final response');
         console.log(response);
-        this.activities = response;
+
+        console.log('distinctIds b4');
+        const distinctIds = [...new Set(response.map(x => x.activityId))];
+        console.log(distinctIds);
+        const newResponse = new Array<ActivityEntity>();
+        for (var i = 0; i < response.length; i++) {
+          if (distinctIds.includes(response[i].activityId)) { // shd include, update distinct ids list
+          newResponse.push(response[i]);
+            for (var j = 0; j < distinctIds.length; j++) { // remove from distinct ids
+              if (distinctIds[j] == response[i].activityId) {
+                distinctIds.splice(j,1);
+              }
+            }
+          } else { // remove from response
+            // response.splice(i, 1);
+          }
+        }
+        console.log('distinctIds after');
+        console.log(distinctIds);
+
+        console.log('unique response');
+        console.log(newResponse);
+        this.activities = newResponse;
       },
       error: (error) => {
         console.log('********** ViewAllActivitiesComponent.ts: ' + error);
@@ -111,7 +133,27 @@ export class ViewAllActivitiesPage implements OnInit {
           newDate2.setUTCSeconds(0);
           val.booking.creationDate = newDate2;
         }
-        this.activities = response;
+        const distinctIds = [...new Set(response.map(x => x.activityId))];
+        console.log(distinctIds);
+        const newResponse = new Array<ActivityEntity>();
+        for (var i = 0; i < response.length; i++) {
+          if (distinctIds.includes(response[i].activityId)) { // shd include, update distinct ids list
+          newResponse.push(response[i]);
+            for (var j = 0; j < distinctIds.length; j++) { // remove from distinct ids
+              if (distinctIds[j] == response[i].activityId) {
+                distinctIds.splice(j,1);
+              }
+            }
+          } else { // remove from response
+            // response.splice(i, 1);
+          }
+        }
+        console.log('distinctIds after');
+        console.log(distinctIds);
+
+        console.log('unique response');
+        console.log(newResponse);
+        this.activities = newResponse;
       },
       error: (error) => {
         console.log('********** ViewAllActivitiesComponent.ts: ' + error);

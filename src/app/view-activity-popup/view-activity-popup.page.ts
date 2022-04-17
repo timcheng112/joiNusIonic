@@ -240,7 +240,7 @@ export class ViewActivityPopupPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Alert',
-      message: 'You have already signed up or have insufficient tokens!',
+      message: 'You have already signed up, the activity is already full, or you have insufficient tokens!',
       buttons: ['OK'],
     });
 

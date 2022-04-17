@@ -4,6 +4,7 @@ import { NormalUserService } from '../services/normaluser.service';
 import { SessionService } from '../services/session.service';
 import { ActivityEntity } from '../models/activity-entity';
 import { ActivityService } from '../services/activity.service';
+import { partition } from 'rxjs';
 
 @Component({
   selector: 'app-index',
@@ -81,8 +82,35 @@ export class IndexPage implements OnInit {
           newDate2.setUTCSeconds(0);
           val.booking.creationDate = newDate2;
         }
+        console.log('filter over');
         response = response.filter((item) => (!item.activityOver));
-        this.activities = response;
+        console.log(response);
+        console.log('filter user');
+        const finalResponse = new Array<ActivityEntity>();
+        var thisUser : NormalUserEntity = this.sessionService.getCurrentNormalUser();
+        for (var val of response) {
+          console.log('val is ');
+          console.log(val);
+          if (val.activityOwner.userId == thisUser.userId) {
+            console.log('user is host');
+            finalResponse.push(val);
+          } else {
+            for (var val2 of val.participants) {
+              if (val2.userId == thisUser.userId) {
+                console.log('user is participating');
+                finalResponse.push(val);
+                break;
+              } else {
+                console.log("this user does not need to see " + val.activityName);
+                console.log(val.participants);
+                console.log(thisUser);
+              }
+            }
+          }
+        }
+        // response = response.filter((item) => item.participants.includes(this.sessionService.getCurrentNormalUser()) || item.activityOwner == this.sessionService.getCurrentNormalUser());
+        console.log(finalResponse);
+        this.activities = finalResponse;
       },
       error: (error) => {
         console.log('********** ViewMyActivitiesComponent.ts: ' + error);
