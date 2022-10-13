@@ -1,6 +1,7 @@
 ﻿# joiNusIonic
 # Summary
-- 3rd place for School Of Computing Term Showcase (STEPS 20)
+- 3rd place for School Of Computing Term Showcase (STePS 20), IS3106 Category
+- https://uvents.nus.edu.sg/event/20th-steps/faq
 - Completed as part of requirements for IS3106 Enterprise Systems Interface Design and Development
 
 # Description
